@@ -1,0 +1,43 @@
+@import "../../../assets/css/variables.css";
+:root{
+    --gradient: linear-gradient(90deg, rgba(59,75,124,1) 0%, rgba(154,180,229,1) 35%, rgba(164,211,165,1) 100%);
+}
+.login_background{
+  background-image:  linear-gradient(90deg, rgba(59,75,124,1) 0%, rgba(154,180,229,1) 35%, rgba(164,211,165,1) 100%);
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height:100%;
+}
+
+.segment{
+  -webkit-box-shadow: 10px 10px 28px 0px var(--shadow);
+  -moz-box-shadow: 10px 10px 28px 0px var(--shadow);
+  box-shadow: 10px 10px 28px 0px var(--shadow);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  background-color: var(--white) !important;
+  padding: 1em;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 10px;
+  width: 70% !important;
+  height: 80% !important;
+}
+
+.btn:hover{
+  background:  linear-gradient(90deg, rgba(59,75,124,1) 0%, rgba(154,180,229,1) 35%, rgba(164,211,165,1) 100%) !important;
+  color: var(--white) !important;
+}
+
+.label{
+  color: var(--primary);
+  text-align: left !important;
+}
+
+small{
+  color: var(--accent) !important;
+  font-weight: bold !important;
+}

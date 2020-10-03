@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./assets/css/variables.css";
+
+header{
+    background-color: var(--primary) !important;
+}
+header a{
+    color: var(--white) !important;
+}
+
+.primary-background{
+    background-color: var(--primary);
+    color: var(--white) !important;
+}
+.secondary-background{
+    background-color: var(--secondary);
+    color: var(--white) !important;
+}

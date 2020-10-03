@@ -1,0 +1,27 @@
+<div class="login_background">
+    <div class="container justify-content-center">
+        <div class="row mt-4">
+            <div class="col">
+                <div class="card segment">
+                    <div class="card-body">
+                        <h5 class="card-title">Inicia Sesión</h5>
+                        <form #credentials="ngForm" class="form-group" (ngSubmit)="Login(credentials)" novalidate>
+                            <div class="form-group">
+                                <div class="label"><label>Correo electrónico</label></div>
+                                <input name="email" class="form-control" ngModel required #email="ngModel">
+                                <div *ngIf="email.errors?.required" class="form-control-feedback text-center form-text"><small>Este campo es obligatorio</small></div>
+                                <div *ngIf="email.errors?.pattern" class="form-control-feedback text-center form-text"><small>Correo no válido</small></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="label"><label>Correo electrónico</label></div>
+                                <input class="form-control text-center" type="password" name="password" required ngModel #password="ngModel">
+                                <div *ngIf="password.errors?.required" class="form-control-feedback text-center form-text"><small>Este campo es obligatorio</small></div>
+                            </div>
+                            <button type="submit" class="btn btn-block secondary-background">Ingresar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
