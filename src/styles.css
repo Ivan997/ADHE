@@ -1,18 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import "./assets/css/variables.css";
-
-header{
-    background-color: var(--primary) !important;
+header {
+    height: 60px;
 }
-header a{
+
+header a:link,
+a:visited,
+a:active {
     color: var(--white) !important;
+    text-decoration: none;
 }
 
-.primary-background{
+.primary-background {
     background-color: var(--primary);
     color: var(--white) !important;
 }
-.secondary-background{
+
+.secondary-background {
     background-color: var(--secondary);
     color: var(--white) !important;
+}
+
+.header__logo {
+    background-color: var(--secondary);
+}
+
+.card-header {
+    background-color: var(--info);
+}
+
+.card-img-top {
+    margin-top: 4px;
+    object-fit: cover;
+    border-radius: 5px;
+    width: 120px;
+    height: 120px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-img-top:hover {
+    opacity: 0.5;
 }

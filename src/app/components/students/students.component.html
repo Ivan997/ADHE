@@ -1,0 +1,19 @@
+<section class="mt-4">
+    <div class="row m-4" *ngIf="!seeProfile">
+        <ng-container class="col-12 col-sm-6 col-md-3" *ngFor="let student of students">
+            <div class="card m-4 pointer" (click)="seeProfile=true">
+                <div class="card-header">
+                    {{student.id}}
+                </div>
+                <img class="card-img-top mt-3" src="{{student.photo}}" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text mt-0">{{student.name}}</p>
+                    <footer class="text-muted">{{student.major}}</footer>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <ng-container class="mt-0" *ngIf="seeProfile">
+        <!-- <app-profile></app-profile> -->
+    </ng-container>
+</section>
