@@ -13,6 +13,11 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { CitasComponent } from './components/citas/citas.component';
 import { ProfileComponent } from './components/students/profile/profile.component';
+import { DateStdComponent } from './components/students/date-std/date-std.component';
+import { TutoriasStdComponent } from './components/students/tutorias-std/tutorias-std.component';
+import { GoeStdComponent } from './components/students/goe-std/goe-std.component';
+import { AsesoriasStdComponent } from './components/students/asesorias-std/asesorias-std.component';
+import { BaseStdComponent } from './components/students/base-std/base-std.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +29,12 @@ import { ProfileComponent } from './components/students/profile/profile.componen
     HeaderComponent,
     FooterComponent,
     NavigationComponent,
-    CitasComponent
+    CitasComponent,
+    DateStdComponent,
+    TutoriasStdComponent,
+    GoeStdComponent,
+    AsesoriasStdComponent,
+    BaseStdComponent
   ],
   imports: [
     AppRoutingModule,

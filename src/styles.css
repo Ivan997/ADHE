@@ -28,6 +28,7 @@ a:active {
 
 .card-header {
     background-color: var(--info);
+    color: #fff;
 }
 
 .card-img-top {
@@ -49,9 +50,24 @@ a:active {
     width: 100%;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
 
-.pointer{
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.pointer {
     cursor: pointer;
+}
+
+.boton {
+    text-align: center;
+}
+
+.container {
+    margin-top: 30px;
 }
