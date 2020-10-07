@@ -44,3 +44,14 @@ a:active {
 .card-img-top:hover {
     opacity: 0.5;
 }
+
+.full-column {
+    width: 100%;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.pointer{
+    cursor: pointer;
+}

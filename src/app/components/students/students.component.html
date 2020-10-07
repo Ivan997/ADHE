@@ -1,7 +1,7 @@
 <section class="mt-4">
     <div class="row m-4" *ngIf="!seeProfile">
-        <ng-container class="col-12 col-sm-6 col-md-3" *ngFor="let student of students">
-            <div class="card m-4 pointer" (click)="seeProfile=true">
+        <ng-container class="col-12 col-sm-6 col-md-3" *ngFor="let student of students;">
+            <div class="card m-4 pointer" (click)="seeProfile=true" [routerLink]="['/inicio/estudiantes/'+student.id]">
                 <div class="card-header">
                     {{student.id}}
                 </div>

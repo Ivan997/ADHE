@@ -20,5 +20,6 @@ export class LoginComponent implements OnInit {
 
   Login(credentials: NgForm) {
    console.log('login...');
+   this.router.navigate(['inicio']);
   }
 }

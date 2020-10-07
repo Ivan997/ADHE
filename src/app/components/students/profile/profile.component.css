@@ -1,0 +1,34 @@
+@import "../../../../assets/css/variables.scss";
+
+.card-img{
+    border-radius: 5px;
+    display: block;
+    margin-left: auto; 
+    margin-right: auto;   
+}
+
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.card-header{
+    background-color: var(--success);
+    color: var(--white);
+}
+
+.section-1{
+    background-color: var(--accent) !important;
+    font-size: 1.3rem;
+}
+.section-2{
+    background-color: var(--info) !important;
+    font-size: 1.3rem;
+}
+
+.icon-small{
+    cursor: pointer;
+    height: 6vh;
+    min-height: 20px;
+    min-width: 30px;
+}

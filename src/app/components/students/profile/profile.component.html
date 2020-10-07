@@ -1,0 +1,54 @@
+<section class="content">
+    <div class="card border-0">
+        <div class="row no-gutters justify-content-around">
+            <img class="col-1 d-none d-md-block img-fluid icon-header icon-small" src="assets/img/back.svg" [routerLink]="['/inicio/estudiantes']">
+            <div class="col-2 image-responsive full-column h-80">
+                <img class="card-img" src="{{student.photo}}" alt="Card image cap">
+            </div>
+            <div class="col-12 mt-3 mt-md-0 col-md-6 full-column h-100">
+                <div class="card-header">
+                    Registro:
+                    <strong>{{student.id}}</strong>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <span class="text-muted">Nombre: </span>
+                        {{student.name}}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="text-muted">Nivel: </span>
+                        Ingeniería
+                    </li>
+                    <li class="list-group-item">
+                        <span class="text-muted">Carrera: </span>
+                        {{student.major}}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="text-muted">Tipo: </span>
+                        {{'Regular'}}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="text-muted">Grupo: </span>
+                        M
+                    </li>
+                    <li class="list-group-item">
+                        <span class="text-muted">Turno: </span>
+                        {{'vespertino'}}
+                    </li>
+                  </ul>
+            </div>
+        </div>
+        <div class="row no-gutters m-2 text-center justify-content-around">
+            <div class="col-12 full-column">
+                <div class="card-header section-1">Horario
+
+                </div>
+            </div>
+        </div>
+        <div class="row no-gutters m-2 text-center justify-content-around">
+            <div class="col-12 full-column">
+                <div class="card-header section-2">Tira de Materias</div>
+            </div>
+        </div>
+  </div>
+</section>

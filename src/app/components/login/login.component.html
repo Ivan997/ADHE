@@ -17,7 +17,7 @@
                                 <input class="form-control text-center" type="password" name="password" required ngModel #password="ngModel">
                                 <div *ngIf="password.errors?.required" class="form-control-feedback text-center form-text"><small>Este campo es obligatorio</small></div>
                             </div>
-                            <button type="submit" class="btn btn-block secondary-background" routerLink="inicio">Ingresar</button>
+                            <button type="submit" class="btn btn-block secondary-background" routerLink="inicio" [disabled]="email.errors || password.errors">Ingresar</button>
                         </form>
                     </div>
                 </div>
