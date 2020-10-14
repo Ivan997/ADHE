@@ -15,11 +15,11 @@ export class TutoriasStdComponent implements OnInit {
   today = new Date();
   pos = -1;
 
-  fecha1 = new Date('12/09/2019');//MM/DD/AAAA HH:MM:SS
-  fecha2 = new Date('09/24/2020');//MM/DD/AAAA HH:MM:SS
-  fecha3 = new Date('09/23/2020');//MM/DD/AAAA HH:MM:SS
-  fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
-  fecha5 = new Date('10/21/2020');//MM/DD/AAAA HH:MM:SS
+  fecha1 = new Date('12/09/2019'); // MM/DD/AAAA HH:MM:SS
+  fecha2 = new Date('09/24/2020'); // MM/DD/AAAA HH:MM:SS
+  fecha3 = new Date('09/23/2020'); // MM/DD/AAAA HH:MM:SS
+  fecha4 = new Date('01/01/2020'); // MM/DD/AAAA HH:MM:SS
+  fecha5 = new Date('10/21/2020'); // MM/DD/AAAA HH:MM:SS
 
   notas = this._as.notas;
 
