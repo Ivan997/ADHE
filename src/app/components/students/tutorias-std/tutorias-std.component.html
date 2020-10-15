@@ -2,16 +2,17 @@
     <h3 style="text-align: center;">GRAFICAS</h3>
     <div class="row">
         <div class="col-md-6">
-            <!-- <app-pruebas-graficas [titulo]="'Asistencia con tutor grupal'" [lineaChartType]="'line'"></app-pruebas-graficas> -->
+            <app-graficas [lineaChartType]="'line'"></app-graficas>
         </div>
-        <div class="col-md-6">
-            <!-- <app-pruebas-graficas [titulo]="'Asistencia con tutor por cita'" [lineaChartType]="'pie'"></app-pruebas-graficas> -->
+        <div class="col-md-6 ">
+            <app-graficas [lineaChartType]="'pie'"></app-graficas>
         </div>
     </div>
     <!-- FIN DE GRAFICAS -->
     <hr>
     <button type="button" class="btn btn-block" [ngClass]="{'btn-outline-info': observaciones, 'btn-info': !observaciones}" (click)="observaciones = !observaciones">Observaciones</button>
     <div *ngIf="observaciones" class="col">
+        <button type="button" class="btn btn-outline-warning btn-block top">+ Agregar Observación</button>
 
         <!-- tarjetas de las observaciones  -->
         <div *ngFor="let nota of notas; let i = index" class="card" style="margin-top: 10px;">
@@ -26,8 +27,6 @@
                 <button class="btn btn-primary btn-block" (click)="muestra(i)">Ver Observación completa</button>
             </div>
         </div>
-
-        <button type="button" class="btn btn-outline-warning btn-block" style="margin-top: 10px;">+ Agregar Observación</button>
     </div>
 
     <hr>

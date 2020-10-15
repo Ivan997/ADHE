@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ChartsModule } from 'ng2-charts';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -18,6 +20,7 @@ import { TutoriasStdComponent } from './components/students/tutorias-std/tutoria
 import { GoeStdComponent } from './components/students/goe-std/goe-std.component';
 import { AsesoriasStdComponent } from './components/students/asesorias-std/asesorias-std.component';
 import { BaseStdComponent } from './components/students/base-std/base-std.component';
+import { GraficasComponent } from './components/common/graficas/graficas.component';
 
 @NgModule({
   declarations: [
@@ -34,14 +37,16 @@ import { BaseStdComponent } from './components/students/base-std/base-std.compon
     TutoriasStdComponent,
     GoeStdComponent,
     AsesoriasStdComponent,
-    BaseStdComponent
+    BaseStdComponent,
+    GraficasComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

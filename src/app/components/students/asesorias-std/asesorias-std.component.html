@@ -1,1 +1,77 @@
-<p>asesorias-std works!</p>
+<div class="container">
+    <h3 style="text-align: center;">GRAFICAS</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <app-graficas [lineaChartType]="'line'"></app-graficas>
+        </div>
+        <div class="col-md-6 ">
+            <app-graficas [lineaChartType]="'pie'"></app-graficas>
+        </div>
+    </div>
+
+    <hr>
+    <button type="button " class="btn btn-block " [ngClass]="{ 'btn-outline-info': observaciones, 'btn-info': !observaciones} " (click)="observaciones=! observaciones ">Observaciones</button>
+    <div *ngIf="observaciones " class="col ">
+        <button type="button " class="btn btn-outline-warning btn-block " style="margin-top: 10px; ">+ Agregar Observacion</button>
+
+        <!-- tarjetas de las observaciones  -->
+        <div *ngFor="let nota of notas; let i=i ndex " class="card " style="margin-top: 10px; ">
+            <div class="card-header ">
+                <span class=" ">{{nota.date | date :'fullDate'}} - {{nota.date | date :'shortTime'}}</span>
+                <br>
+                <span>Encargado: {{nota.attendant}}</span>
+                <br>
+                <span>Materia: {{nota.class}}</span>
+
+            </div>
+            <div class="card-body ">
+                <p class="card-text "><strong>Observación:</strong> <br>{{getNota(i)}}</p>
+                <button class="btn btn-primary btn-block " (click)="muestra(i) ">Ver Observación completa</button>
+            </div>
+        </div>
+
+    </div>
+    <hr>
+    <button type="button " class="btn btn-block " [ngClass]="{ 'btn-outline-info': clases, 'btn-info': !clases} " (click)="clases=! clases " style="margin-bottom: 10px; ">Clases</button>
+    <div *ngIf="clases " class="col ">
+
+        <table class="table table-responsive table-bordered ">
+            <thead style="text-align: center; " class="thead-dark ">
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th colspan="2 ">1er Parcial</th>
+                    <th colspan="2 ">2do Parcial</th>
+                    <th colspan="2 ">3er Parcial</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>Materia</th>
+                    <th>Profesor</th>
+                    <th>Asistencia</th>
+                    <th>Calificación</th>
+                    <th>Asistencia</th>
+                    <th>Calificación</th>
+                    <th>Asistencia</th>
+                    <th>Calificación</th>
+                    <th>Promedio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of class; let i=i ndex " style="text-align: center; ">
+                    <td>{{c.name}}</td>
+                    <td>{{c.attendant}}</td>
+                    <td>{{c.asistenciaP1}}</td>
+                    <td>{{c.partial1}}</td>
+                    <td>{{c.asistenciaP2}}</td>
+                    <td>{{c.partial2}}</td>
+                    <td>{{c.asistenciaP3}}</td>
+                    <td>{{c.partial3}}</td>
+                    <td>{{getAverage(i) | number : '1.2-2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button type="button " class="btn btn-outline-success btn-block " style="margin-bottom: 10px; ">+ Agregar Clase</button>
+    </div>
+</div>
