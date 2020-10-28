@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tutorias-std',
@@ -35,7 +36,7 @@ export class TutoriasStdComponent implements OnInit {
     {date: this.fecha5, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false}
   ];
 
-  constructor(private _as: AlumnosService) { }
+  constructor(private _as: AlumnosService, private router: Router) { }
 
   ngOnInit(): void {
     this.notas.sort((a, b) => {
@@ -123,5 +124,10 @@ export class TutoriasStdComponent implements OnInit {
 
   muestra(index: number){
     console.log(index, '=' , this.notas[index]);
+  }
+
+  observacion(){
+    console.log("navegando sin rumbo");
+    this.router.navigate(['./formObserv']);
   }
 }

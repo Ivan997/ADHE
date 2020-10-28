@@ -1,0 +1,62 @@
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+    <div class="container">
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Registro</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Registro" formControlName="registro">
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre">
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Apellido</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido">
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Encargado</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Encargado" formControlName="encargado">
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Área de formación Integral</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Área de formación Integral" formControlName="area">
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Observación</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Observación" formControlName="observacion">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-outline-success">Enviar formulario</button>
+    </div>
+</form>
+
+<hr>
+<pre>
+  Estado del formulario : {{ forma.valid }}
+  <br>
+  Status: {{ forma.status }}
+</pre>
+<pre>
+  {{ forma.value | json }}
+</pre>

@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ChartsModule } from 'ng2-charts';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { StudentsComponent } from './components/students/students.component';
 import { HeaderComponent } from './layout/header/header.component';
@@ -23,6 +23,8 @@ import { BaseStdComponent } from './components/students/base-std/base-std.compon
 import { GraficasComponent } from './components/common/graficas/graficas.component';
 import { TimetableComponent } from './components/students/timetable/timetable.component';
 import { SubjectsComponent } from './components/students/subjects/subjects.component';
+import { ObservacionesComponent } from './components/common/observaciones/observaciones.component';
+import { FormularioCitasComponent } from './components/common/citas/formulario-citas/formulario-citas.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { SubjectsComponent } from './components/students/subjects/subjects.compo
     BaseStdComponent,
     GraficasComponent,
     TimetableComponent,
+    ObservacionesComponent,
+    FormularioCitasComponent,
     SubjectsComponent
   ],
   imports: [
@@ -50,7 +54,8 @@ import { SubjectsComponent } from './components/students/subjects/subjects.compo
     AppRoutingModule,
     FormsModule,
     CommonModule,
-    ChartsModule
+    ChartsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
