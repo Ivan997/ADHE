@@ -75,3 +75,7 @@ body {
 .top {
     margin-top: 10px;
 }
+
+.no-outline:focus{
+    outline: 0;
+}

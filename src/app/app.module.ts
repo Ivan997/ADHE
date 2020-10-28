@@ -21,6 +21,8 @@ import { GoeStdComponent } from './components/students/goe-std/goe-std.component
 import { AsesoriasStdComponent } from './components/students/asesorias-std/asesorias-std.component';
 import { BaseStdComponent } from './components/students/base-std/base-std.component';
 import { GraficasComponent } from './components/common/graficas/graficas.component';
+import { TimetableComponent } from './components/students/timetable/timetable.component';
+import { SubjectsComponent } from './components/students/subjects/subjects.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { GraficasComponent } from './components/common/graficas/graficas.compone
     GoeStdComponent,
     AsesoriasStdComponent,
     BaseStdComponent,
-    GraficasComponent
+    GraficasComponent,
+    TimetableComponent,
+    SubjectsComponent
   ],
   imports: [
     AppRoutingModule,
