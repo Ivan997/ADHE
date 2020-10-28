@@ -23,6 +23,8 @@ import { BaseStdComponent } from './components/students/base-std/base-std.compon
 import { GraficasComponent } from './components/common/graficas/graficas.component';
 import { ObservacionesComponent } from './components/common/observaciones/observaciones.component';
 import { FormularioCitasComponent } from './components/common/citas/formulario-citas/formulario-citas.component';
+import { TimetableComponent } from './components/students/timetable/timetable.component';
+import { SubjectsComponent } from './components/students/subjects/subjects.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { FormularioCitasComponent } from './components/common/citas/formulario-c
     BaseStdComponent,
     GraficasComponent,
     ObservacionesComponent,
-    FormularioCitasComponent
+    FormularioCitasComponent,
+    TimetableComponent,
+    SubjectsComponent
   ],
   imports: [
     AppRoutingModule,

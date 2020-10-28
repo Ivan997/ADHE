@@ -1,0 +1,21 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Lunes</th>
+            <th scope="col">Martes</th>
+            <th scope="col">Miércoles</th>
+            <th scope="col">Jueves</th>
+            <th scope="col">Viernes</th>
+            <th scope="col">Sábado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <div *ngIf="!isMorningShift">
+            <tr  *ngFor="let class of afternoonShiftHours">
+                <td scope="row">{{class}}</td>
+                <td  *ngFor="let subject of subjects">{{subject}}</td>
+            </tr>
+        </div>
+    </tbody>
+</table>
