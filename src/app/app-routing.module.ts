@@ -10,6 +10,7 @@ import { DateStdComponent } from './components/students/date-std/date-std.compon
 import { TutoriasStdComponent } from './components/students/tutorias-std/tutorias-std.component';
 import { GoeStdComponent } from './components/students/goe-std/goe-std.component';
 import { AsesoriasStdComponent } from './components/students/asesorias-std/asesorias-std.component';
+import { ObservacionesComponent } from './components/common/observaciones/observaciones.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
     {path: 'estudiantes', children:[
       {path:'',component:StudentsComponent},
       {path:':id',component:BaseStdComponent, children: [
+        {path: 'formObserv', component: ObservacionesComponent},
         {path: 'perfil', component: ProfileComponent},
         {path: 'citas', component: DateStdComponent},
         {path: 'tutorias', component: TutoriasStdComponent},
