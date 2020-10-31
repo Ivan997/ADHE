@@ -1,10 +1,23 @@
 :root {
-    --primary: #FC6363;
+    --primary: #624094;
+    --primary2: #D247C2;
     --secondary: #3B4B7C;
-    --info: #9AB4E5;
-    --success: #A4D3A5;
-    --accent: #4B7A54;
+    --info: #408A94;
+    --success: #3B8A5D;
     --white: #FFFFFF;
     --burgundy: #80011F;
     --shadow: #000000;
 }
+
+
+/* Originales
+:root {
+  --primary: #FC6363;
+  --secondary: #3B4B7C;
+  --info: #9AB4E5;
+  --success: #A4D3A5;
+  --accent: #4B7A54;
+  --white: #FFFFFF;
+  --burgundy: #80011F;
+  --shadow: #000000;
+} */
