@@ -33,7 +33,7 @@
         </div>
         <div class="row no-gutters m-2 text-center justify-content-around">
             <div class="col-12 full-column pointer">
-                <div class="card-header section-2" (click)="isTimetableVisible = !isTimetableVisible">Horario 
+                <div class="card-header section-2" (click)="isTimetableVisible = !isTimetableVisible">Horario
                     <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!isTimetableVisible"></i>
                     <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="isTimetableVisible"></i>
                 </div>
@@ -46,7 +46,7 @@
                     <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!areSubjectsVisible"></i>
                     <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="areSubjectsVisible"></i>
                 </div>
-                <app-subjects  *ngIf="areSubjectsVisible"></app-subjects>
+                <app-subjects *ngIf="areSubjectsVisible"></app-subjects>
             </div>
         </div>
     </div>

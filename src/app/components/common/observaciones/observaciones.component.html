@@ -1,9 +1,10 @@
-<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar(f)" #f="ngForm">
     <div class="container">
         <div class="form-group row">
             <label class="col-2 col-form-label">Registro</label>
             <div class="col-8">
-                <input class="form-control" type="text" placeholder="Registro" formControlName="registro">
+                <input name="registro" class="form-control" type="text" placeholder="Registro" formControlName="registro" [class.is-invalid]="registroValido">
+                <small *ngIf="registroValido" class="text-danger">Favor de ingresar un texto valido</small>
             </div>
         </div>
 
@@ -11,7 +12,8 @@
         <div class="form-group row">
             <label class="col-2 col-form-label">Nombre</label>
             <div class="col-8">
-                <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre">
+                <input name="nombre" class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreValido">
+                <small *ngIf="nombreValido" class="text-danger">Favor de ingresar un texto valido</small>
             </div>
         </div>
 
@@ -19,7 +21,8 @@
         <div class="form-group row">
             <label class="col-2 col-form-label">Apellido</label>
             <div class="col-8">
-                <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido">
+                <input name="apellido" class="form-control" type="text" placeholder="Apellido" formControlName="apellido" [class.is-invalid]="apellidoValido">
+                <small *ngIf="apellidoValido" class="text-danger">Favor de ingresar un texto valido</small>
             </div>
         </div>
 
@@ -27,7 +30,8 @@
         <div class="form-group row">
             <label class="col-2 col-form-label">Encargado</label>
             <div class="col-8">
-                <input class="form-control" type="text" placeholder="Encargado" formControlName="encargado">
+                <input name="encargado" class="form-control" type="text" placeholder="Encargado" formControlName="encargado" [class.is-invalid]="encargadoValido">
+                <small *ngIf="encargadoValido" class="text-danger">Favor de ingresar un texto valido</small>
             </div>
         </div>
 
@@ -35,7 +39,8 @@
         <div class="form-group row">
             <label class="col-2 col-form-label">Área de formación Integral</label>
             <div class="col-8">
-                <input class="form-control" type="text" placeholder="Área de formación Integral" formControlName="area">
+                <input name="area" class="form-control" type="text" placeholder="Área de formación Integral" formControlName="area" [class.is-invalid]="areaValido">
+                <small *ngIf="areaValido" class="text-danger">Favor de ingresar un texto valido</small>
             </div>
         </div>
 
@@ -43,23 +48,14 @@
         <div class="form-group row">
             <label class="col-2 col-form-label">Observación</label>
             <div class="col-8">
-                <input class="form-control" type="text" placeholder="Observación" formControlName="observacion">
+                <input name="observacion" class="form-control" type="text" placeholder="Observación" formControlName="observacion" [class.is-invalid]="observacionValido">
+                <small *ngIf="observacionValido" class="text-danger">Favor de ingresar un texto valido</small>
             </div>
         </div>
 
-        <div style="text-align: center;">
-            <button type="submit" class="btn btn-outline-success">Enviar formulario</button>
+        <div class="boton">
+            <button type="submit" class="btn btn-outline-success">Agregar Observación</button>
 
         </div>
     </div>
 </form>
-
-<!-- <hr>
-<pre>
-  Estado del formulario : {{ forma.valid }}
-  <br>
-  Status: {{ forma.status }}
-</pre>
-<pre>
-  {{ forma.value | json }}
-</pre> -->

@@ -11,6 +11,7 @@ import { TutoriasStdComponent } from './components/students/tutorias-std/tutoria
 import { GoeStdComponent } from './components/students/goe-std/goe-std.component';
 import { AsesoriasStdComponent } from './components/students/asesorias-std/asesorias-std.component';
 import { ObservacionesComponent } from './components/common/observaciones/observaciones.component';
+import { FormularioCitasComponent } from './components/common/citas/formulario-citas/formulario-citas.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
       {path:'',component:StudentsComponent},
       {path:':id',component:BaseStdComponent, children: [
         {path: 'formObserv', component: ObservacionesComponent},
+        {path: 'formCita', component: FormularioCitasComponent},
         {path: 'perfil', component: ProfileComponent},
         {path: 'citas', component: DateStdComponent},
         {path: 'tutorias', component: TutoriasStdComponent},

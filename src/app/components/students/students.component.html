@@ -3,10 +3,10 @@
         <div class="input-group md-form form-sm form-2 pl-0">
             <input class="form-control my-0 py-1 color-border" type="text" placeholder="Buscar alumno por nombre o registro" aria-label="search">
             <div class="input-group-append">
-              <span class="input-group-text secondary-background lighten-3" id="basic-text1"><i class="zmdi zmdi-search"></i>
+                <span class="input-group-text secondary-background lighten-3" id="basic-text1"><i class="zmdi zmdi-search"></i>
               </span>
             </div>
-          </div>
+        </div>
     </div>
     <div class="row m-4" *ngIf="!seeProfile">
         <ng-container class="col-12 col-sm-6 col-md-3" *ngFor="let student of students;">
@@ -22,7 +22,7 @@
             </div>
         </ng-container>
     </div>
-    <ng-container class="mt-0" *ngIf="seeProfile">
-        <!-- <app-profile></app-profile> -->
-    </ng-container>
+    <!-- <ng-container class="mt-0" *ngIf="seeProfile">
+        <app-profile></app-profile>
+    </ng-container> -->
 </section>
