@@ -34,6 +34,8 @@
     <button type="button" class="btn btn-block" [ngClass]="{'btn-outline-info': citas, 'btn-info': !citas}" (click)="citas = !citas" style="margin-bottom: 10px;">Citas</button>
     <div *ngIf="citas" class="col">
 
+        <button type="button" class="btn btn-outline-success btn-block" style="margin-top: 10px; margin-bottom: 10px;" routerLink="../formCita">+ Agregar Cita</button>
+
         <!-- tarjetas de citas para el alumno -->
         <div *ngFor="let cita of dates; let i = index">
             <div *ngIf="!verificaCita(i)" class="card" style="margin-top: 10px;">
@@ -73,7 +75,5 @@
                 </div>
             </div>
         </div>
-
-        <button type="button" class="btn btn-outline-success btn-block" style="margin-top: 10px; margin-bottom: 10px;">+ Agregar Cita</button>
     </div>
 </div>

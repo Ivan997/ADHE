@@ -21,6 +21,8 @@ import { GoeStdComponent } from './components/students/goe-std/goe-std.component
 import { AsesoriasStdComponent } from './components/students/asesorias-std/asesorias-std.component';
 import { BaseStdComponent } from './components/students/base-std/base-std.component';
 import { GraficasComponent } from './components/common/graficas/graficas.component';
+import { TimetableComponent } from './components/students/timetable/timetable.component';
+import { SubjectsComponent } from './components/students/subjects/subjects.component';
 import { ObservacionesComponent } from './components/common/observaciones/observaciones.component';
 import { FormularioCitasComponent } from './components/common/citas/formulario-citas/formulario-citas.component';
 
@@ -41,8 +43,10 @@ import { FormularioCitasComponent } from './components/common/citas/formulario-c
     AsesoriasStdComponent,
     BaseStdComponent,
     GraficasComponent,
+    TimetableComponent,
     ObservacionesComponent,
-    FormularioCitasComponent
+    FormularioCitasComponent,
+    SubjectsComponent
   ],
   imports: [
     AppRoutingModule,

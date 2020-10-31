@@ -1,7 +1,6 @@
 <section class="content">
     <div class="card border-0">
         <div class="row no-gutters justify-content-around">
-            <img class="col-1 d-none d-md-block img-fluid icon-header icon-small" src="assets/img/back.svg" [routerLink]="['/inicio/estudiantes']">
             <div class="col-2 image-responsive full-column h-80">
                 <img class="card-img" src="{{student.photo}}" alt="Card image cap">
             </div>
@@ -33,15 +32,21 @@
             </div>
         </div>
         <div class="row no-gutters m-2 text-center justify-content-around">
-            <div class="col-12 full-column">
-                <div class="card-header section-2">Horario
-
+            <div class="col-12 full-column pointer">
+                <div class="card-header section-2" (click)="isTimetableVisible = !isTimetableVisible">Horario
+                    <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!isTimetableVisible"></i>
+                    <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="isTimetableVisible"></i>
                 </div>
+                <app-timetable [isMorningShift]="false" *ngIf="isTimetableVisible"></app-timetable>
             </div>
         </div>
         <div class="row no-gutters m-2 text-center justify-content-around">
-            <div class="col-12 full-column">
-                <div class="card-header section-2">Tira de Materias</div>
+            <div class="col-12 full-column pointer">
+                <div class="card-header section-2" (click)="areSubjectsVisible = !areSubjectsVisible">Tira de Materias
+                    <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!areSubjectsVisible"></i>
+                    <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="areSubjectsVisible"></i>
+                </div>
+                <app-subjects *ngIf="areSubjectsVisible"></app-subjects>
             </div>
         </div>
     </div>
