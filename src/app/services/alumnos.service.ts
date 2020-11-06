@@ -1,9 +1,14 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { ObservacionesModel } from '../models/observaciones.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlumnosService {
+
+  private url = 'https://adhe-51a66.firebaseio.com/';
 
   fecha1 = new Date('12/09/2019');//MM/DD/AAAA HH:MM:SS
   fecha2 = new Date('09/24/2020');//MM/DD/AAAA HH:MM:SS
@@ -11,10 +16,59 @@ export class AlumnosService {
   fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
   fecha5 = new Date('10/21/2020');//MM/DD/AAAA HH:MM:SS
 
-  notas =  [
-    {date: this.fecha1, attendant: 'Ivan Arredondo', class: 'Matematicas', note: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'},
-    {date: this.fecha4, attendant: 'Ivan Arredondo', class: 'Matematicas', note: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'}
-  ];
+  constructor( private http: HttpClient) { }
 
-  constructor() { }
+  crearObservacion( observacion ): any{
+
+    if (observacion.id !== ''){
+      return;
+    }
+
+    return this.http.post(`${this.url}/observaciones.json`, observacion)
+    .pipe(
+      map( (resp: any) => {
+        observacion.id = resp.name;
+        return observacion;
+      })
+    );
+  }
+
+  getObservaciones( tipo: string ): any{
+
+    // let params;
+
+    // switch(tipo){
+    //   case 'GOE':
+    //     params = new HttpParams().set('area', 'GOE');
+    //     break;
+    //   case 'Tutorias':
+    //     params = new HttpParams().set('area', 'Tutorias');
+    //     break;
+    //   default:
+    //     params = new HttpParams().set('area', 'Tutorias');
+    //     break;
+    // }
+
+    return this.http.get(`${this.url}/observaciones.json`)
+    .pipe(
+      map(this.crearArregloObs)
+    );
+  }
+
+  private crearArregloObs( observacionesObj: object): ObservacionesModel[]{
+    const obs: ObservacionesModel[] = [];
+
+    if ( observacionesObj === null) {return []; }
+    Object.keys( observacionesObj ).forEach( key =>{
+      const ob: ObservacionesModel = observacionesObj[key];
+      ob.id = key;
+
+      obs.push( ob );
+    });
+
+    console.log( 'observaciones' );
+    // console.log(obs);
+
+    return obs;
+  }
 }

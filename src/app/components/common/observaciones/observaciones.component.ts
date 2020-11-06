@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { AlumnosService } from '../../../services/alumnos.service';
+import Swal from 'sweetalert2';
+import { ObservacionesModel } from '../../../models/observaciones.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-observaciones',
@@ -9,14 +13,9 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 })
 export class ObservacionesComponent implements OnInit {
 
-  forma: FormGroup;
-
-  constructor( private fb: FormBuilder) {
+  constructor( private fb: FormBuilder, private as: AlumnosService) {
     this.crearFormulario();
     this.cargarDatos();
-  }
-
-  ngOnInit(): void {
   }
 
 
@@ -39,6 +38,14 @@ export class ObservacionesComponent implements OnInit {
   return this.forma.get('observacion').invalid && this.forma.get('observacion').touched;
   }
 
+  forma: FormGroup;
+
+  valor = new ObservacionesModel();
+
+  ngOnInit(): void {
+    this.valor.id = '';
+  }
+
   crearFormulario(){
 
     this.forma = this.fb.group({
@@ -56,11 +63,11 @@ export class ObservacionesComponent implements OnInit {
     this.forma.setValue(
       {
         registro   : '16310034',
-        nombre     : '',
-        apellido   : '',
-        encargado  : '',
-        area       : '',
-        observacion: ''
+        nombre     : 'Ivan',
+        apellido   : 'Arredondo',
+        encargado  : 'Juanchito',
+        area       : 'GOE',
+        observacion: 'ASDAKJSDLAKSDJSAD ASKDIJALSIDJ PAIOSD PAD PASDPOAI '
       }
     );
   }
@@ -76,7 +83,83 @@ export class ObservacionesComponent implements OnInit {
       return;
     }
 
-   console.log(form);
+    Swal.fire({
+      icon: 'info',
+      title: 'Espere',
+      text: 'Guardando Observación',
+      allowOutsideClick: false
+    });
+    Swal.showLoading();
+
+    if (this.valor.id !== ''){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El registro ya existe'
+      });
+      return;
+    }
+
+    const today = new Date();
+    let mes = '';
+
+    switch(today.getMonth()){
+      case 1:
+        mes = 'Enero';
+        break;
+      case 2:
+        mes = 'Febrero';
+        break;
+      case 3:
+        mes = 'Marzo';
+        break;
+      case 4:
+        mes = 'Abril';
+        break;
+      case 5:
+        mes = 'Mayo';
+        break;
+      case 6:
+        mes = 'Junio';
+        break;
+      case 7:
+        mes = 'Julio';
+        break;
+      case 8:
+        mes = 'Agosto';
+        break;
+      case 9:
+        mes = 'Septiembre';
+        break;
+      case 10:
+        mes = 'Octubre';
+        break;
+      case 11:
+        mes = 'Noviembre';
+        break;
+      case 12:
+        mes = 'Diciembre';
+        break;
+    }
+
+    this.valor = {
+      id: '',
+      registro: form.value['registro'],
+      nombre: (form.value['nombre'] + ' ' + form.value['apellido']),
+      encargado: form.value['encargado'],
+      observacion: form.value['observacion'],
+      area: form.value['area'],
+      fecha: `${today.getDate()} ${mes} ${today.getFullYear()}`,
+      hora: `${today.getHours()}:${today.getMinutes()}.${today.getSeconds()}`
+    };
+
+    this.as.crearObservacion(this.valor).subscribe( resp => {
+      Swal.fire({
+        icon: 'success',
+        title: 'OK',
+        text: 'Se agrego correctamente'
+      });
+    }) ;
 
   }
 

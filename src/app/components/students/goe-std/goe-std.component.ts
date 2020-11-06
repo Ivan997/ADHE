@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
+import { ObservacionesModel } from '../../../models/observaciones.model';
 
 @Component({
   selector: 'app-goe-std',
@@ -8,8 +9,6 @@ import { AlumnosService } from '../../../services/alumnos.service';
   ]
 })
 export class GoeStdComponent implements OnInit {
-
-
 
   observaciones = false;
   citas = false;
@@ -22,7 +21,7 @@ export class GoeStdComponent implements OnInit {
   fecha3 = new Date('09/30/2020 3:25 pm');//MM/DD/AAAA HH:MM:SS
   fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
 
-  notas = this._as.notas;
+  notas: ObservacionesModel [] = [];
 
   dates = [
     {date: this.fecha1, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
@@ -35,12 +34,16 @@ export class GoeStdComponent implements OnInit {
     {date: this.fecha4, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false}
   ];
 
-  constructor(private _as: AlumnosService) { }
+  constructor(private as: AlumnosService) { }
 
   ngOnInit(): void {
-    this.notas.sort((a, b) => {
-      return b.date.getTime() - a.date.getTime();
+    this.as.getObservaciones('GOE').subscribe(resp => {
+      console.log(resp);
+      this.notas = resp;
     });
+    // this.notas.sort((a, b) => {
+    //   return b.date.getTime() - a.date.getTime();
+    // });
 
 
     this.dates.sort((a, b) => {
@@ -118,7 +121,7 @@ export class GoeStdComponent implements OnInit {
   }
 
   getNota(index: number){
-    return this.notas[index].note.substring(100, -1);
+    return this.notas[index].observacion.substring(500, -1);
   }
 
   muestra(index: number){

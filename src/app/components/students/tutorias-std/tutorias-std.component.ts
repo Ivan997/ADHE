@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
 import { Router } from '@angular/router';
+import { ObservacionesModel } from '../../../models/observaciones.model';
 
 @Component({
   selector: 'app-tutorias-std',
@@ -22,7 +23,7 @@ export class TutoriasStdComponent implements OnInit {
   fecha4 = new Date('01/01/2020'); // MM/DD/AAAA HH:MM:SS
   fecha5 = new Date('10/21/2020'); // MM/DD/AAAA HH:MM:SS
 
-  notas = this._as.notas;
+  notas: ObservacionesModel [] = [];
 
   dates = [
     {date: this.fecha1, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
@@ -36,17 +37,23 @@ export class TutoriasStdComponent implements OnInit {
     {date: this.fecha5, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false}
   ];
 
-  constructor(private _as: AlumnosService, private router: Router) { }
+  constructor(private as: AlumnosService, private router: Router) { }
 
   ngOnInit(): void {
-    this.notas.sort((a, b) => {
-      return b.date.getTime() - a.date.getTime();
+
+    this.as.getObservaciones('Tutorias').subscribe(resp => {
+      console.log(resp);
+      this.notas = resp;
     });
 
+    // this.notas.sort((a, b) => {
+    //   return b.date.getTime() - a.date.getTime();
+    // });
 
-    this.dates.sort((a, b) => {
-      return a.date.getTime() - b.date.getTime();
-    });
+
+    // this.dates.sort((a, b) => {
+    //   return a.date.getTime() - b.date.getTime();
+    // });
 
     this.dates.map(citas => this.comparar(citas));
   }
@@ -119,7 +126,7 @@ export class TutoriasStdComponent implements OnInit {
   }
 
   getNota(index: number){
-    return this.notas[index].note.substring(100, -1);
+    return this.notas[index].observacion.substring(500, -1);
   }
 
   muestra(index: number){
