@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
 import { ObservacionesModel } from '../../../models/observaciones.model';
+import { CitasModel } from '../../../models/citas.model';
 
 @Component({
   selector: 'app-goe-std',
@@ -23,34 +24,71 @@ export class GoeStdComponent implements OnInit {
 
   notas: ObservacionesModel [] = [];
 
-  dates = [
-    {date: this.fecha1, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha2, location: 'GOE', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha4, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha3, location: 'GOE', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha3, location: 'Asesorias', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha3, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha3, location: 'Asesorias', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha4, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false}
-  ];
+  dates = [];
 
   constructor(private as: AlumnosService) { }
 
+
   ngOnInit(): void {
-    this.as.getObservaciones('GOE').subscribe(resp => {
-      console.log(resp);
-      this.notas = resp;
+
+    let citx =  [];
+
+    let  promesaObserv = new Promise(() => {
+      this.as.getObservaciones('GOE').subscribe(resp => {
+        console.log(resp);
+        this.notas = resp;
+      });
     });
+
+    let promesaCitas = new Promise((resolve) => {
+      this.as.getCitas().subscribe(resp => {
+        citx = resp;
+        resolve();
+      });
+    }).then(() => {
+      citx.forEach(index => {
+          console.log('Buscando en index');
+
+          const fecha = index.fecha.split('/');
+          const hora = index.hora.split(':');
+
+          const fec = new Date(parseInt(fecha[2]), parseInt(fecha[1]), parseInt(fecha[0]), parseInt(hora[0]), parseInt(hora[1]), 0);
+
+          console.log("fecha:");
+          console.log(fec);
+
+          const objCita = {
+            id: index.id,
+            area: index.area,
+            registro: index.registro,
+            nombre: index.nombre + ' ' + index.apellido,
+            encargado : index.encargado,
+            date: fec,
+            location: index.area,
+            notes: index.nota,
+            finished: index.finalizado,
+            photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/0.jpg'
+          };
+
+          this.dates.push(objCita);
+          console.log('this.dates');
+          console.log(this.dates);
+
+        });
+    });
+
+
     // this.notas.sort((a, b) => {
     //   return b.date.getTime() - a.date.getTime();
     // });
-
 
     this.dates.sort((a, b) => {
       return a.date.getTime() - b.date.getTime();
     });
 
     this.dates.map(citas => this.comparar(citas));
+    // console.log(this.dates);
+
   }
 
   verificaCita(index: number){
@@ -63,13 +101,13 @@ export class GoeStdComponent implements OnInit {
 
   }
 
-  verificaCitaVencida(index: number){
-    if (this.dates[index].location === 'GOE' ){
-      return this.dates[index].finished;
-    }else{
-      return false;
-    }
-  }
+  // verificaCitaVencida(index: number){
+  //   if (this.dates[index].location === 'GOE' ){
+  //     return this.dates[index].finished;
+  //   }else{
+  //     return false;
+  //   }
+  // }
 
   finalizado(cita){
     this.dates.map(dat => {

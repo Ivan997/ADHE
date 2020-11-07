@@ -2,11 +2,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ObservacionesModel } from '../models/observaciones.model';
+import { CitasModel } from '../models/citas.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlumnosService {
+
+  // citas: CitasModel[] = new CitasModel() [];
 
   private url = 'https://adhe-51a66.firebaseio.com/';
 
@@ -14,9 +17,48 @@ export class AlumnosService {
   fecha2 = new Date('09/24/2020');//MM/DD/AAAA HH:MM:SS
   fecha3 = new Date('09/23/2020');//MM/DD/AAAA HH:MM:SS
   fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
-  fecha5 = new Date('10/21/2020');//MM/DD/AAAA HH:MM:SS
+  fecha5 = new Date('12/21/2020');//MM/DD/AAAA HH:MM:SS
 
   constructor( private http: HttpClient) { }
+
+  crearCita( cita: CitasModel ): any {
+
+    if (cita.id !== ''){
+      return;
+    }
+
+    return this.http.post(`${this.url}/citas.json`, cita)
+    .pipe(
+      map( (resp: any) => {
+        cita.id = resp.name;
+        return cita;
+      })
+    );
+
+  }
+
+  getCitas(): any{
+    return this.http.get(`${this.url}/citas.json`)
+    .pipe(
+      map(this.crearArregloCitas)
+    );
+  }
+
+  private crearArregloCitas(citasObj: object): CitasModel[]{
+      const cits: CitasModel[] = [];
+
+      console.log(citasObj);
+
+      if ( citasObj === null) { return []; }
+      Object.keys( citasObj ).forEach( key =>{
+        const ob: CitasModel = citasObj[key];
+        ob.id = key;
+
+        cits.push( ob );
+      });
+
+      return cits;
+  }
 
   crearObservacion( observacion ): any{
 
@@ -34,21 +76,6 @@ export class AlumnosService {
   }
 
   getObservaciones( tipo: string ): any{
-
-    // let params;
-
-    // switch(tipo){
-    //   case 'GOE':
-    //     params = new HttpParams().set('area', 'GOE');
-    //     break;
-    //   case 'Tutorias':
-    //     params = new HttpParams().set('area', 'Tutorias');
-    //     break;
-    //   default:
-    //     params = new HttpParams().set('area', 'Tutorias');
-    //     break;
-    // }
-
     return this.http.get(`${this.url}/observaciones.json`)
     .pipe(
       map(this.crearArregloObs)

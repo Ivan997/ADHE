@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
+import { CitasModel } from '../../../../models/citas.model';
+import { AlumnosService } from '../../../../services/alumnos.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -12,7 +15,11 @@ export class FormularioCitasComponent implements OnInit {
 
   forma: FormGroup;
 
-  constructor( private fb: FormBuilder) {
+  fecha = new Date('12/21/2020');//MM/DD/AAAA HH:MM:SS
+
+  private cita = new CitasModel();
+
+  constructor( private fb: FormBuilder, private as: AlumnosService) {
     this.crearFormulario();
     this.cargarDatos();
   }
@@ -40,6 +47,7 @@ export class FormularioCitasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cita.id = '';
   }
 
   crearFormulario(){
@@ -49,10 +57,10 @@ export class FormularioCitasComponent implements OnInit {
       nombre     : ['', [Validators.required, Validators.minLength(3)]],
       apellido   : ['', [Validators.required, Validators.minLength(4)]],
       fecha      : ['', [Validators.required]],
-      hora      : ['', [Validators.required]],
+      hora       : ['', [Validators.required]],
       encargado  : ['', [Validators.required, Validators.minLength(4)]],
       area       : ['', [Validators.required, Validators.minLength(3)]],
-      nota      : ['', [Validators.required]],
+      nota       : ['', [Validators.required]],
     });
 
   }
@@ -61,20 +69,20 @@ export class FormularioCitasComponent implements OnInit {
     this.forma.setValue(
       {
         registro  : '16310034',
-        nombre    : '',
+        nombre    : 'Ivan Emmanuel',
         apellido  : 'Arredondo Martinez',
-        encargado : '',
-        fecha     : '',
-        hora      : '',
-        area      : '',
-        nota      : ''
+        encargado : 'JUanita Perez',
+        fecha     : this.fecha.getDate() + '/' + this.fecha.getMonth() + '/' + this.fecha.getFullYear() ,
+        hora      : '12:30',
+        area      : 'GOE',
+        nota      : 'Sabra Dios'
       }
     );
   }
 
   guardar(form: NgForm){
 
-    if(form.invalid){
+    if (form.invalid){
 
       Object.values(this.forma.controls).forEach(control => {
         control.markAsTouched();
@@ -83,7 +91,45 @@ export class FormularioCitasComponent implements OnInit {
       return;
     }
 
-   console.log(form);
+    Swal.fire({
+      icon: 'info',
+      title: 'Espere',
+      text: 'Guardando Cita',
+      allowOutsideClick: false
+    });
+    Swal.showLoading();
+
+    if ( this.cita.id !== ''){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El registro ya existe'
+      });
+      return;
+    }
+
+    this.cita.id = '';
+    this.cita.registro = form.value['registro'];
+    this.cita.nombre = form.value['nombre'];
+    this.cita.apellido = form.value['apellido'];
+    this.cita.encargado = form.value['encargado'];
+    this.cita.fecha = form.value['fecha'];
+    this.cita.hora = form.value['hora'];
+    this.cita.area = form.value['area'];
+    this.cita.nota = form.value['nota'];
+    this.cita.finalizado = false;
+    this.cita.asistencia = false;
+
+
+    console.log(this.cita);
+
+    this.as.crearCita(this.cita).subscribe(resp => {
+      Swal.fire({
+        icon: 'success',
+        title: 'OK',
+        text: 'Se agrego correctamente'
+      });
+    });
 
   }
 }

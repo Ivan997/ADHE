@@ -39,18 +39,18 @@
 
 
         <!-- CITAS PENDIENTES DE GOE -->
-        <div *ngFor="let cita of dates; let i = index">
-            <div *ngIf="!verificaCita(i)" class="card" style="margin-top: 10px;">
+        <div *ngFor="let cita of this.dates; let i = index">
+            <div *ngIf="!cita.finalizado && cita.area === 'GOE'" class="card" style="margin-top: 10px;">
                 <div class="card-header" [ngClass]="{'bg-danger': comparar(cita)===0 , 'bg-success': comparar(cita)===2 , 'bg-warning': comparar(cita)===1 , 'bg-info': comparar(cita)===-1}">
                     <span class="">{{cita.date | date :'fullDate'}} - {{cita.date | date :'shortTime'}}</span>
 
                 </div>
                 <div class="card-body">
-                    <img style="float: left; margin-right: 15px;" [src]="cita.student.photo" [alt]="cita.student.id" height="150px" width="150px">
+                    <img style="float: left; margin-right: 15px;" [src]="cita.photo" [alt]="cita.id" height="150px" width="150px">
                     <aside>
                         <h5 class="card-title">Área: {{cita.location}}</h5>
                         <p class="card-text">Nota: <br> {{cita.notes}}</p>
-                        <button class="btn btn-primary">Ver Cita</button>
+                        <!-- <button class="btn btn-primary">Ver Cita</button> -->
                     </aside>
                 </div>
             </div>
@@ -60,8 +60,8 @@
 
 
         <div *ngIf="citasAnteriores">
-            <div *ngFor="let cita of dates; let i = index">
-                <div *ngIf="verificaCitaVencida(i)" class="card" style="margin-top: 10px;">
+            <div *ngFor="let cita of this.dates; let i = index">
+                <div *ngIf="cita.finalizado" class="card" style="margin-top: 10px;">
                     <div class="card-header" [ngClass]="{'bg-success': comparar(cita)===0 , 'bg-danger': comparar(cita)===2 , 'bg-warning': comparar(cita)===1 , 'bg-info': comparar(cita)===-1}">
                         <span class="">{{cita.date | date :'fullDate'}} - {{cita.date | date :'shortTime'}}</span>
 

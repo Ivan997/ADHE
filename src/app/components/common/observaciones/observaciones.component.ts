@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { AlumnosService } from '../../../services/alumnos.service';
 import Swal from 'sweetalert2';
 import { ObservacionesModel } from '../../../models/observaciones.model';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-observaciones',
