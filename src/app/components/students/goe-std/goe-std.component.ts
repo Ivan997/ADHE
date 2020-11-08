@@ -15,16 +15,17 @@ export class GoeStdComponent implements OnInit {
   citas = false;
   citasAnteriores = false;
   today = new Date();
-  pos = -1;
+  pos = -1;s
 
-  fecha1 = new Date('12/09/2019');//MM/DD/AAAA HH:MM:SS
-  fecha2 = new Date('10/12/2019');//MM/DD/AAAA HH:MM:SS
-  fecha3 = new Date('09/30/2020 3:25 pm');//MM/DD/AAAA HH:MM:SS
-  fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
+  // fecha1 = new Date('12/09/2019');//MM/DD/AAAA HH:MM:SS
+  // fecha2 = new Date('10/12/2019');//MM/DD/AAAA HH:MM:SS
+  // fecha3 = new Date('09/30/2020 3:25 pm');//MM/DD/AAAA HH:MM:SS
+  // fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
 
   notas: ObservacionesModel [] = [];
 
   dates = [];
+  passDates = [];
 
   constructor(private as: AlumnosService) { }
 
@@ -35,7 +36,7 @@ export class GoeStdComponent implements OnInit {
 
     let  promesaObserv = new Promise(() => {
       this.as.getObservaciones('GOE').subscribe(resp => {
-        console.log(resp);
+        // console.log(resp);
         this.notas = resp;
       });
     });
@@ -47,15 +48,20 @@ export class GoeStdComponent implements OnInit {
       });
     }).then(() => {
       citx.forEach(index => {
-          console.log('Buscando en index');
+          // console.log('Buscando en index');
 
           const fecha = index.fecha.split('/');
           const hora = index.hora.split(':');
 
           const fec = new Date(parseInt(fecha[2]), parseInt(fecha[1]), parseInt(fecha[0]), parseInt(hora[0]), parseInt(hora[1]), 0);
 
-          console.log("fecha:");
-          console.log(fec);
+          const diaC = fec.getDate();
+          const mesC = fec.getMonth();
+          const anioC = fec.getFullYear();
+
+          const diaH = this.today.getDate();
+          const mesH = this.today.getMonth();
+          const anioH = this.today.getFullYear();
 
           const objCita = {
             id: index.id,
@@ -70,26 +76,37 @@ export class GoeStdComponent implements OnInit {
             photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/0.jpg'
           };
 
-          this.dates.push(objCita);
-          console.log('this.dates');
-          console.log(this.dates);
+          if ( anioC < anioH ){
+            this.passDates.push(objCita);
+            this.actualizarCitaPass(index);
+          }
+          else if ( anioC > anioH ){ this.dates.push(objCita); }
+          else if ( mesC > mesH){ this.dates.push(objCita); }
+          else if ( anioC === anioH && mesC === mesH  && diaC >= diaH){ this.dates.push(objCita); }
+          else {
+            this.passDates.push(objCita);
+            if ((index.asistencia && !index.finalizado) || !index.finalizado) { this.actualizarCitaPass(index); }
+          }
 
+          this.dates.sort((a, b) => {
+            return a.date.getTime() - b.date.getTime();
+          });
+          this.passDates.sort((a, b) => {
+            return a.date.getTime() - b.date.getTime();
+          });
         });
     });
-
-
-    // this.notas.sort((a, b) => {
-    //   return b.date.getTime() - a.date.getTime();
-    // });
-
-    this.dates.sort((a, b) => {
-      return a.date.getTime() - b.date.getTime();
-    });
-
-    this.dates.map(citas => this.comparar(citas));
-    // console.log(this.dates);
-
   }
+
+  actualizarCitaPass(cita: CitasModel): any{
+    if (!cita.finalizado || cita.asistencia){
+      console.log('Actualizando');
+      cita.finalizado = true;
+      this.as.actualizarCita(cita).subscribe();
+    }
+  }
+
+
 
   verificaCita(index: number){
 

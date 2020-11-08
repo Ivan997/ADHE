@@ -44,6 +44,10 @@ export class AlumnosService {
     );
   }
 
+  actualizarCita(cita: CitasModel): any {
+    return this.http.put(`${ this.url }/citas/${ cita.id }.json`, cita);
+  }
+
   private crearArregloCitas(citasObj: object): CitasModel[]{
       const cits: CitasModel[] = [];
 
