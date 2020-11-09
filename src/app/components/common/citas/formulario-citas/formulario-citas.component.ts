@@ -60,22 +60,44 @@ export class FormularioCitasComponent implements OnInit {
       hora       : ['', [Validators.required]],
       encargado  : ['', [Validators.required, Validators.minLength(4)]],
       area       : ['', [Validators.required, Validators.minLength(3)]],
-      nota       : ['', [Validators.required]],
+      nota       : ['']
     });
 
   }
 
   cargarDatos(){
+
+    let nombreCompleto: string = this.as.student.nombre;
+    let nombres = '';
+    let nombre = '';
+    let apellido = '';
+    let reg = '';
+
+    if (this.as !== undefined){
+      try {
+        nombres = nombreCompleto.split(' ');
+        nombre = nombres[0];
+        apellido = nombres[nombres.length - 1 ];
+        reg = this.as.alumnoActual;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if(reg === ''){
+      reg = '';
+    }
+
     this.forma.setValue(
       {
-        registro  : '16310034',
-        nombre    : 'Ivan Emmanuel',
-        apellido  : 'Arredondo Martinez',
-        encargado : 'JUanita Perez',
+        registro  : reg,
+        nombre    : nombre,
+        apellido  : apellido,
+        encargado : '',
         fecha     : this.fecha.getDate() + '/' + this.fecha.getMonth() + '/' + this.fecha.getFullYear() ,
         hora      : '12:30',
-        area      : 'GOE',
-        nota      : 'Sabra Dios'
+        area      : '',
+        nota      : ''
       }
     );
   }

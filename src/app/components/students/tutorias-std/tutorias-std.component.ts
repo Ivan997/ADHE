@@ -34,11 +34,22 @@ export class TutoriasStdComponent implements OnInit {
   ngOnInit(): void {
 
     let citx =  [];
+    let notx: ObservacionesModel[] = [];
 
-    let  promesaObserv = new Promise(() => {
+    let  promesaObserv = new Promise((resolve) => {
       this.as.getObservaciones('Tutorias').subscribe(resp => {
         // console.log(resp);
-        this.notas = resp;
+        // this.notas = resp;
+        notx = resp;
+        resolve();
+      });
+    }).then(() => {
+      notx.forEach(index => {
+        console.log('index');
+        console.log(index);
+        if(index.registro === this.as.alumnoActual){
+          this.notas.push(index);
+        }
       });
     });
 
@@ -49,6 +60,9 @@ export class TutoriasStdComponent implements OnInit {
       });
     }).then(() => {
       citx.forEach(index => {
+
+        if(index.registro === this.as.alumnoActual){
+
           // console.log('Buscando en index');
 
           const fecha = index.fecha.split('/');
@@ -76,7 +90,7 @@ export class TutoriasStdComponent implements OnInit {
             location: index.area,
             notes: index.nota,
             finished: index.finalizado,
-            photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/0.jpg'
+            photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/' + this.as.alumnoActual + '.jpg',
           };
 
           if ( anioC < anioH ){
@@ -97,21 +111,10 @@ export class TutoriasStdComponent implements OnInit {
           this.passDates.sort((a, b) => {
             return a.date.getTime() - b.date.getTime();
           });
+        }
+
         });
-
-      console.log('this.dates');
-      console.log(this.dates);
-      console.log('this.passDates');
-      console.log(this.passDates);
     });
-
-
-    // this.notas.sort((a, b) => {
-    //   return b.date.getTime() - a.date.getTime();
-    // });
-
-    // console.log(this.dates);
-
   }
 
   actualizarCitaPass(cita: CitasModel): any{

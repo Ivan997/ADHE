@@ -59,14 +59,36 @@ export class ObservacionesComponent implements OnInit {
   }
 
   cargarDatos(){
+
+    let nombreCompleto: string = this.as.student.nombre;
+    let nombres = '';
+    let nombre = '';
+    let apellido = '';
+    let reg = '';
+
+    if (this.as !== undefined){
+      try {
+        nombres = nombreCompleto.split(' ');
+        nombre = nombres[0];
+        apellido = nombres[nombres.length - 1 ];
+        reg = this.as.alumnoActual;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if(reg === ''){
+      reg = '';
+    }
+
     this.forma.setValue(
       {
-        registro   : '16310034',
-        nombre     : 'Ivan',
-        apellido   : 'Arredondo',
-        encargado  : 'Juanchito',
-        area       : 'GOE',
-        observacion: 'ASDAKJSDLAKSDJSAD ASKDIJALSIDJ PAIOSD PAD PASDPOAI '
+        registro   : reg,
+        nombre,
+        apellido,
+        encargado  : '',
+        area       : '',
+        observacion: ''
       }
     );
   }

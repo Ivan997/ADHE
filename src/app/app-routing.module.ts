@@ -18,8 +18,8 @@ const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'inicio', component: DashboardComponent, children: [
     {path: 'estudiantes', children:[
-      {path:'',component:StudentsComponent},
-      {path:':id',component:BaseStdComponent, children: [
+      {path: '', component: StudentsComponent},
+      {path: ':id', component: BaseStdComponent, children: [
         {path: 'formObserv', component: ObservacionesComponent},
         {path: 'formCita', component: FormularioCitasComponent},
         {path: 'perfil', component: ProfileComponent},

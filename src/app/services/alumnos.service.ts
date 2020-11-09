@@ -1,15 +1,18 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 import { ObservacionesModel } from '../models/observaciones.model';
 import { CitasModel } from '../models/citas.model';
+import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlumnosService {
 
-  // citas: CitasModel[] = new CitasModel() [];
+  student = {};
+
+  alumnoActual = '';
 
   private url = 'https://adhe-51a66.firebaseio.com/';
 
@@ -20,6 +23,74 @@ export class AlumnosService {
   fecha5 = new Date('12/21/2020');//MM/DD/AAAA HH:MM:SS
 
   constructor( private http: HttpClient) { }
+
+
+  getAlumnos(registro: string): any{
+    this.alumnoActual = registro;
+    return this.http.get(`${this.url}/alumnos.json`)
+    .pipe(
+      map(resp => {
+        if(registro != ''){
+          return this.getAlumnoCorrecto(resp, registro);
+        }else {
+          return this.getTodosAlumnos(resp);
+        }
+      })
+    );
+  }
+
+  private getTodosAlumnos(alumnosObj: object) {
+
+    let alumno = [];
+    if ( alumnosObj === null ){ return []; }
+
+    Object.keys( alumnosObj ).forEach( key => {
+
+      const al = {
+          carrera: alumnosObj[key].carrera ,
+          grupo: alumnosObj[key].grupo ,
+          nivel: alumnosObj[key].nivel ,
+          nombre: alumnosObj[key].nombre ,
+          registro: alumnosObj[key].registro ,
+          tipo: alumnosObj[key].tipo ,
+          turno: alumnosObj[key].turno
+      };
+      // console.log('encontrado');
+      alumno.push(al);
+
+    });
+
+    // console.log(alumno);
+    return alumno;
+
+  }
+  private getAlumnoCorrecto(alumnosObj: object, registro: string) {
+
+    let alumno = {};
+    if ( alumnosObj === null ){ return []; }
+
+    Object.keys( alumnosObj ).forEach( key => {
+
+      if (alumnosObj[key].registro === parseInt(registro)){
+        const al = {
+           carrera: alumnosObj[key].carrera ,
+           grupo: alumnosObj[key].grupo ,
+           nivel: alumnosObj[key].nivel ,
+           nombre: alumnosObj[key].nombre ,
+           registro: alumnosObj[key].registro ,
+           tipo: alumnosObj[key].tipo ,
+           turno: alumnosObj[key].turno
+        };
+        // console.log('encontrado');
+        alumno = al;
+      }
+
+    });
+
+    // console.log(alumno);
+    return alumno;
+
+  }
 
   crearCita( cita: CitasModel ): any {
 

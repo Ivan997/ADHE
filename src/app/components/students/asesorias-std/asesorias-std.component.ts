@@ -33,9 +33,20 @@ export class AsesoriasStdComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.as.getObservaciones('Asesorias').subscribe(resp => {
-      console.log(resp);
-      this.notas = resp;
+    let notx: ObservacionesModel[] = [];
+
+    const promesaNotas = new Promise((resolve) => {
+      this.as.getObservaciones('Asesorias').subscribe(resp => {
+        console.log(resp);
+        notx = resp;
+        resolve();
+      });
+    }).then(() => {
+      notx.forEach( index => {
+        if(index.registro === this.as.alumnoActual){
+          this.notas.push(index);
+        }
+      });
     });
 
     // this.notas.sort((a, b) => {

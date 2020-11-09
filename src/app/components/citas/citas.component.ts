@@ -60,7 +60,7 @@ export class CitasComponent implements OnInit {
             location: index.area,
             notes: index.nota,
             finished: index.finalizado,
-            photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/0.jpg'
+            photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/' + index.registro + '.jpg'
           };
 
           if ( anioC < anioH ){

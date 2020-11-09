@@ -23,6 +23,7 @@ export class DateStdComponent implements OnInit {
 
   ngOnInit(): void {
 
+    console.log(`registro actual ${this.as.alumnoActual}`);
 
     let citx =  [];
 
@@ -33,6 +34,10 @@ export class DateStdComponent implements OnInit {
       });
     }).then(() => {
       citx.forEach(index => {
+
+        if(index.registro === this.as.alumnoActual){
+
+
           // console.log('Buscando en index');
 
           const fecha = index.fecha.split('/');
@@ -60,7 +65,7 @@ export class DateStdComponent implements OnInit {
             location: index.area,
             notes: index.nota,
             finished: index.finalizado,
-            photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/0.jpg'
+            photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/' + this.as.alumnoActual + '.jpg'
           };
 
           if ( anioC < anioH ){
@@ -81,6 +86,8 @@ export class DateStdComponent implements OnInit {
           this.passDates.sort((a, b) => {
             return a.date.getTime() - b.date.getTime();
           });
+        }
+
         });
 
       // console.log('this.dates');

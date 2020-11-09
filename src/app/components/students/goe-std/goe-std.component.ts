@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, resolveForwardRef } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
 import { ObservacionesModel } from '../../../models/observaciones.model';
 import { CitasModel } from '../../../models/citas.model';
@@ -33,11 +33,19 @@ export class GoeStdComponent implements OnInit {
   ngOnInit(): void {
 
     let citx =  [];
+    let notx: ObservacionesModel [] = [];
 
-    let  promesaObserv = new Promise(() => {
+    let  promesaObserv = new Promise((resolve) => {
       this.as.getObservaciones('GOE').subscribe(resp => {
         // console.log(resp);
-        this.notas = resp;
+        notx = resp;
+        resolve();
+      });
+    }).then(() => {
+      notx.forEach(index => {
+        if(index.registro === this.as.alumnoActual){
+          this.notas.push(index);
+        }
       });
     });
 
@@ -48,6 +56,8 @@ export class GoeStdComponent implements OnInit {
       });
     }).then(() => {
       citx.forEach(index => {
+
+        if(index.registro === this.as.alumnoActual){
           // console.log('Buscando en index');
 
           const fecha = index.fecha.split('/');
@@ -73,7 +83,7 @@ export class GoeStdComponent implements OnInit {
             location: index.area,
             notes: index.nota,
             finished: index.finalizado,
-            photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/0.jpg'
+            photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/' + this.as.alumnoActual + '.jpg'
           };
 
           if ( anioC < anioH ){
@@ -94,6 +104,8 @@ export class GoeStdComponent implements OnInit {
           this.passDates.sort((a, b) => {
             return a.date.getTime() - b.date.getTime();
           });
+        }
+
         });
     });
   }
