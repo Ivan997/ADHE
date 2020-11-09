@@ -76,6 +76,28 @@ body {
     margin-top: 10px;
 }
 
-.no-outline:focus{
+.boton {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.no-outline:focus {
     outline: 0;
+}
+
+.col-12.tarjetas {
+    height: auto;
+    width: 28%;
+}
+
+.col-sm-6.tarjetas {
+    height: auto;
+    width: 40%;
+}
+
+.col-md-3.tarjetas {
+    height: auto;
+    width: 50%;
 }

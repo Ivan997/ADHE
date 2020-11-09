@@ -1,5 +1,5 @@
 <div class="container">
-    <h3 style="text-align: center;">GRAFICAS</h3>
+    <h3 style="text-align: center;">Graficas Asesorías</h3>
     <div class="row">
         <div class="col-md-6">
             <app-graficas [lineaChartType]="'line'"></app-graficas>
@@ -10,29 +10,38 @@
     </div>
 
     <hr>
-    <button type="button " class="btn btn-block " [ngClass]="{ 'btn-outline-info': observaciones, 'btn-info': !observaciones} " (click)="observaciones=! observaciones ">Observaciones</button>
+    <button type="button " class="btn btn-block " [ngClass]="{ 'btn-outline-info': observaciones, 'btn-info': !observaciones} " (click)="observaciones=! observaciones ">Observaciones
+      <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!observaciones"></i>
+      <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="observaciones"></i>
+    </button>
     <div *ngIf="observaciones " class="col ">
         <button type="button " class="btn btn-outline-warning btn-block " style="margin-top: 10px; " routerLink="../formObserv">+ Agregar Observacion</button>
 
         <!-- tarjetas de las observaciones  -->
-        <div *ngFor=" let nota of notas; let i=i ndex " class="card " style="margin-top: 10px; ">
-            <div class="card-header ">
-                <span class=" ">{{nota.date | date :'fullDate'}} - {{nota.date | date :'shortTime'}}</span>
-                <br>
-                <span>Encargado: {{nota.attendant}}</span>
-                <br>
-                <span>Materia: {{nota.class}}</span>
+        <div *ngFor=" let nota of notas; let i=index ">
+            <div *ngIf="nota.area != 'GOE' && nota.area != 'Tutorias'" class="card " style="margin-top: 10px; ">
+                <div class="card-header ">
+                    <span class=" ">{{nota.fecha}} - {{nota.hora}}</span>
+                    <!-- <span class=" ">{{nota.date | date :'fullDate'}} - {{nota.date | date :'shortTime'}}</span> -->
+                    <br>
+                    <span>Encargado: {{nota.encargado}}</span>
+                    <br>
+                    <span>Materia: {{nota.area}}</span>
 
-            </div>
-            <div class="card-body ">
-                <p class="card-text "><strong>Observación:</strong> <br>{{getNota(i)}}</p>
-                <button class="btn btn-primary btn-block " (click)="muestra(i) ">Ver Observación completa</button>
+                </div>
+                <div class="card-body ">
+                    <p class="card-text "><strong>Observación:</strong> <br>{{getNota(i)}}</p>
+                    <!-- <button class="btn btn-primary btn-block " (click)="muestra(i) ">Ver Observación completa</button> -->
+                </div>
             </div>
         </div>
-
     </div>
+
     <hr>
-    <button type="button " class="btn btn-block " [ngClass]="{ 'btn-outline-info': clases, 'btn-info': !clases} " (click)="clases=! clases " style="margin-bottom: 10px; ">Clases</button>
+    <button type="button " class="btn btn-block " [ngClass]="{ 'btn-outline-info': clases, 'btn-info': !clases} " (click)="clases=! clases " style="margin-bottom: 10px; ">Clases
+      <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!clases"></i>
+      <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="clases"></i>
+    </button>
     <div *ngIf="clases " class="col ">
 
         <table class="table table-responsive table-bordered ">
@@ -58,7 +67,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let c of class; let i=i ndex " style="text-align: center; ">
+                <tr *ngFor="let c of this.class; let i= index " style="text-align: center; ">
                     <td>{{c.name}}</td>
                     <td>{{c.attendant}}</td>
                     <td>{{c.asistenciaP1}}</td>

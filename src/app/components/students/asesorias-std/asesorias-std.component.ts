@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
+import { ObservacionesModel } from '../../../models/observaciones.model';
 
 @Component({
   selector: 'app-asesorias-std',
@@ -9,7 +10,7 @@ import { AlumnosService } from '../../../services/alumnos.service';
 })
 export class AsesoriasStdComponent implements OnInit {
 
-  constructor(private _as: AlumnosService) { }
+  constructor(private as: AlumnosService) { }
 
   observaciones = false;
   clases = false;
@@ -22,7 +23,7 @@ export class AsesoriasStdComponent implements OnInit {
   fecha3 = new Date('09/12/2020');//MM/DD/AAAA HH:MM:SS
   fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
 
-  notas = this._as.notas;
+  notas: ObservacionesModel [] = [];
 
   class = [
     {name: 'Matematicas', attendant: 'Ivan Arredondo', asistenciaP1: 10, partial1: 100, asistenciaP2: 10, partial2: 50, partial3: 0, asistenciaP3: 10, average: 0},
@@ -31,13 +32,30 @@ export class AsesoriasStdComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.notas.sort((a, b) => {
-      return b.date.getTime() - a.date.getTime();
+
+    let notx: ObservacionesModel[] = [];
+
+    const promesaNotas = new Promise((resolve) => {
+      this.as.getObservaciones('Asesorias').subscribe(resp => {
+        console.log(resp);
+        notx = resp;
+        resolve();
+      });
+    }).then(() => {
+      notx.forEach( index => {
+        if(index.registro === this.as.alumnoActual){
+          this.notas.push(index);
+        }
+      });
     });
+
+    // this.notas.sort((a, b) => {
+    //   return b.fecha.getTime() - a.fecha.getTime();
+    // });
   }
 
   getNota(index: number){
-    return this.notas[index].note.substring(100, -1);
+    return this.notas[index].observacion.substring(500, -1);
   }
 
   muestra(index: number){

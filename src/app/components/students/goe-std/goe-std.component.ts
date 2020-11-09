@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, resolveForwardRef } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
+import { ObservacionesModel } from '../../../models/observaciones.model';
+import { CitasModel } from '../../../models/citas.model';
 
 @Component({
   selector: 'app-goe-std',
@@ -9,46 +11,114 @@ import { AlumnosService } from '../../../services/alumnos.service';
 })
 export class GoeStdComponent implements OnInit {
 
-
-
   observaciones = false;
   citas = false;
   citasAnteriores = false;
   today = new Date();
-  pos = -1;
+  pos = -1;s
 
-  fecha1 = new Date('12/09/2019');//MM/DD/AAAA HH:MM:SS
-  fecha2 = new Date('10/12/2019');//MM/DD/AAAA HH:MM:SS
-  fecha3 = new Date('09/30/2020 3:25 pm');//MM/DD/AAAA HH:MM:SS
-  fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
+  // fecha1 = new Date('12/09/2019');//MM/DD/AAAA HH:MM:SS
+  // fecha2 = new Date('10/12/2019');//MM/DD/AAAA HH:MM:SS
+  // fecha3 = new Date('09/30/2020 3:25 pm');//MM/DD/AAAA HH:MM:SS
+  // fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
 
-  notas = this._as.notas;
+  notas: ObservacionesModel [] = [];
 
-  dates = [
-    {date: this.fecha1, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha2, location: 'GOE', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha4, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha3, location: 'GOE', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha3, location: 'Asesorias', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha3, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha3, location: 'Asesorias', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false},
-    {date: this.fecha4, location: 'Tutorías', student: { name: 'Yaiza Gil Guerrero', photo: '../../../assets/people/photos/2.jpg', id: '2031892', major: 'Ingeniería en Desarrollo de Software' }, notes: null, finished: false}
-  ];
+  dates = [];
+  passDates = [];
 
-  constructor(private _as: AlumnosService) { }
+  constructor(private as: AlumnosService) { }
+
 
   ngOnInit(): void {
-    this.notas.sort((a, b) => {
-      return b.date.getTime() - a.date.getTime();
+
+    let citx =  [];
+    let notx: ObservacionesModel [] = [];
+
+    let  promesaObserv = new Promise((resolve) => {
+      this.as.getObservaciones('GOE').subscribe(resp => {
+        // console.log(resp);
+        notx = resp;
+        resolve();
+      });
+    }).then(() => {
+      notx.forEach(index => {
+        if(index.registro === this.as.alumnoActual){
+          this.notas.push(index);
+        }
+      });
     });
 
+    let promesaCitas = new Promise((resolve) => {
+      this.as.getCitas().subscribe(resp => {
+        citx = resp;
+        resolve();
+      });
+    }).then(() => {
+      citx.forEach(index => {
 
-    this.dates.sort((a, b) => {
-      return a.date.getTime() - b.date.getTime();
+        if(index.registro === this.as.alumnoActual){
+          // console.log('Buscando en index');
+
+          const fecha = index.fecha.split('/');
+          const hora = index.hora.split(':');
+
+          const fec = new Date(parseInt(fecha[2]), parseInt(fecha[1]), parseInt(fecha[0]), parseInt(hora[0]), parseInt(hora[1]), 0);
+
+          const diaC = fec.getDate();
+          const mesC = fec.getMonth();
+          const anioC = fec.getFullYear();
+
+          const diaH = this.today.getDate();
+          const mesH = this.today.getMonth();
+          const anioH = this.today.getFullYear();
+
+          const objCita = {
+            id: index.id,
+            area: index.area,
+            registro: index.registro,
+            nombre: index.nombre + ' ' + index.apellido,
+            encargado : index.encargado,
+            date: fec,
+            location: index.area,
+            notes: index.nota,
+            finished: index.finalizado,
+            photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/' + this.as.alumnoActual + '.jpg'
+          };
+
+          if ( anioC < anioH ){
+            this.passDates.push(objCita);
+            this.actualizarCitaPass(index);
+          }
+          else if ( anioC > anioH ){ this.dates.push(objCita); }
+          else if ( mesC > mesH){ this.dates.push(objCita); }
+          else if ( anioC === anioH && mesC === mesH  && diaC >= diaH){ this.dates.push(objCita); }
+          else {
+            this.passDates.push(objCita);
+            if ((index.asistencia && !index.finalizado) || !index.finalizado) { this.actualizarCitaPass(index); }
+          }
+
+          this.dates.sort((a, b) => {
+            return a.date.getTime() - b.date.getTime();
+          });
+          this.passDates.sort((a, b) => {
+            return a.date.getTime() - b.date.getTime();
+          });
+        }
+
+        });
     });
-
-    this.dates.map(citas => this.comparar(citas));
   }
+
+  actualizarCitaPass(cita: CitasModel): any{
+    if (!cita.finalizado || cita.asistencia){
+      console.log('Actualizando');
+      cita.finalizado = true;
+      this.as.actualizarCita(cita).subscribe();
+    }
+  }
+
+
 
   verificaCita(index: number){
 
@@ -60,13 +130,13 @@ export class GoeStdComponent implements OnInit {
 
   }
 
-  verificaCitaVencida(index: number){
-    if (this.dates[index].location === 'GOE' ){
-      return this.dates[index].finished;
-    }else{
-      return false;
-    }
-  }
+  // verificaCitaVencida(index: number){
+  //   if (this.dates[index].location === 'GOE' ){
+  //     return this.dates[index].finished;
+  //   }else{
+  //     return false;
+  //   }
+  // }
 
   finalizado(cita){
     this.dates.map(dat => {
@@ -118,7 +188,7 @@ export class GoeStdComponent implements OnInit {
   }
 
   getNota(index: number){
-    return this.notas[index].note.substring(100, -1);
+    return this.notas[index].observacion.substring(500, -1);
   }
 
   muestra(index: number){

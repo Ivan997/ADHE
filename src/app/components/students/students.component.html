@@ -9,15 +9,15 @@
         </div>
     </div>
     <div class="row m-4" *ngIf="!seeProfile">
-        <ng-container class="col-12 col-sm-6 col-md-3" *ngFor="let student of students;">
-            <div class="card m-4 pointer" (click)="seeProfile=true" [routerLink]="['/inicio/estudiantes/'+student.id]">
+        <ng-container class="" *ngFor="let student of students;">
+            <div class="col-12 col-sm-6 col-md-3 tarjetas card m-2 pointer" (click)="seeProfile=true" [routerLink]="['/inicio/estudiantes/'+student.registro]">
                 <div class="card-header">
-                    {{student.id}}
+                    Registro: {{student.registro}}
                 </div>
-                <img class="card-img-top mt-3" src="{{student.photo}}" alt="Card image cap">
+                <img class="card-img-top mt-3" src="{{student.foto}}" alt="Card image cap">
                 <div class="card-body">
-                    <p class="card-text mt-0">{{student.name}}</p>
-                    <footer class="text-muted">{{student.major}}</footer>
+                    <p class="card-text mt-0">{{student.nombre}}</p>
+                    <footer class="text-muted">{{student.carrera}}</footer>
                 </div>
             </div>
         </ng-container>

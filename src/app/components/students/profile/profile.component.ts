@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AlumnosService } from '../../../services/alumnos.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,12 +8,52 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  student =  { name: "Claudita Alvarez Ruiz", "photo": "../../../assets/people/photos/0.jpg", id: "2031890", major: "Ingeniería en Desarrollo de Software" };
+
+  registroActual = '';
+  urlPhoto = 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/';
+  student = {
+    carrera: '',
+    grupo: '',
+    nivel: '',
+    nombre: '',
+    registro: '',
+    tipo: '',
+    turno: '',
+    foto : ''
+  };
   isTimetableVisible = false;
   areSubjectsVisible = false;
-  constructor() { }
+
+  constructor(private as: AlumnosService) {
+    this.registroActual = as.alumnoActual;
+    console.log(this.registroActual);
+   }
 
   ngOnInit() {
+
+    let alumnxs = [];
+
+    const promesaAlumno = new Promise((resolve) => {
+      this.as.getAlumnos(this.registroActual).subscribe((resp) => {
+        console.log('resp');
+        alumnxs = resp;
+        resolve();
+      });
+    }).then(() => {
+      // console.log('resolved');
+      // console.log(alumnxs);
+      this.student.nombre = alumnxs.nombre;
+      this.student.carrera = alumnxs.carrera;
+      this.student.grupo = alumnxs.grupo;
+      this.student.nivel = alumnxs.nivel;
+      this.student.registro = alumnxs.registro;
+      this.student.tipo = alumnxs.tipo;
+      this.student.turno = alumnxs.turno;
+      this.student.foto = this.urlPhoto + alumnxs.registro + '.jpg';
+    });
+
+    this.as.student = this.student;
+
   }
 
 }
