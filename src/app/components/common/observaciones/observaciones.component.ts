@@ -12,29 +12,29 @@ import { ObservacionesModel } from '../../../models/observaciones.model';
 })
 export class ObservacionesComponent implements OnInit {
 
-  constructor( private fb: FormBuilder, private as: AlumnosService) {
+  constructor(private fb: FormBuilder, private as: AlumnosService) {
     this.crearFormulario();
     this.cargarDatos();
   }
 
 
-  get registroValido(){
-  return this.forma.get('registro').invalid && this.forma.get('registro').touched;
+  get registroValido() {
+    return this.forma.get('registro').invalid && this.forma.get('registro').touched;
   }
-  get nombreValido(){
-  return this.forma.get('nombre').invalid && this.forma.get('nombre').touched;
+  get nombreValido() {
+    return this.forma.get('nombre').invalid && this.forma.get('nombre').touched;
   }
-  get apellidoValido(){
-  return this.forma.get('apellido').invalid && this.forma.get('apellido').touched;
+  get apellidoValido() {
+    return this.forma.get('apellido').invalid && this.forma.get('apellido').touched;
   }
-  get encargadoValido(){
-  return this.forma.get('encargado').invalid && this.forma.get('encargado').touched;
+  get encargadoValido() {
+    return this.forma.get('encargado').invalid && this.forma.get('encargado').touched;
   }
-  get areaValido(){
-  return this.forma.get('area').invalid && this.forma.get('area').touched;
+  get areaValido() {
+    return this.forma.get('area').invalid && this.forma.get('area').touched;
   }
-  get observacionValido(){
-  return this.forma.get('observacion').invalid && this.forma.get('observacion').touched;
+  get observacionValido() {
+    return this.forma.get('observacion').invalid && this.forma.get('observacion').touched;
   }
 
   forma: FormGroup;
@@ -45,20 +45,20 @@ export class ObservacionesComponent implements OnInit {
     this.valor.id = '';
   }
 
-  crearFormulario(){
+  crearFormulario() {
 
     this.forma = this.fb.group({
-      registro   : ['', [Validators.required, Validators.minLength(4)]],
-      nombre     : ['', [Validators.required, Validators.minLength(4)]],
-      apellido   : ['', [Validators.required, Validators.minLength(4)]],
-      encargado  : ['', [Validators.required, Validators.minLength(4)]],
-      area       : ['', [Validators.required, Validators.minLength(3)]],
+      registro: ['', [Validators.required, Validators.minLength(4)]],
+      nombre: ['', [Validators.required, Validators.minLength(4)]],
+      apellido: ['', [Validators.required, Validators.minLength(4)]],
+      encargado: ['', [Validators.required, Validators.minLength(4)]],
+      area: ['', [Validators.required, Validators.minLength(3)]],
       observacion: ['', [Validators.required, Validators.minLength(4)]],
     });
 
   }
 
-  cargarDatos(){
+  cargarDatos() {
 
     let nombreCompleto: string = this.as.student.nombre;
     let nombres = [];
@@ -66,36 +66,36 @@ export class ObservacionesComponent implements OnInit {
     let apellido = '';
     let reg = '';
 
-    if (this.as !== undefined){
+    if (this.as !== undefined) {
       try {
         nombres = nombreCompleto.split(' ');
         nombre = nombres[0];
-        apellido = nombres[nombres.length - 1 ];
+        apellido = nombres[nombres.length - 1];
         reg = this.as.alumnoActual;
       } catch (error) {
         console.log(error);
       }
     }
 
-    if(reg === ''){
+    if (reg === '') {
       reg = '';
     }
 
     this.forma.setValue(
       {
-        registro   : reg,
+        registro: reg,
         nombre,
         apellido,
-        encargado  : '',
-        area       : '',
+        encargado: '',
+        area: '',
         observacion: ''
       }
     );
   }
 
-  guardar(form: NgForm){
+  guardar(form: NgForm) {
 
-    if (form.invalid){
+    if (form.invalid) {
 
       Object.values(this.forma.controls).forEach(control => {
         control.markAsTouched();
@@ -112,7 +112,7 @@ export class ObservacionesComponent implements OnInit {
     });
     Swal.showLoading();
 
-    if (this.valor.id !== ''){
+    if (this.valor.id !== '') {
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -124,7 +124,7 @@ export class ObservacionesComponent implements OnInit {
     const today = new Date();
     let mes = '';
 
-    switch(today.getMonth()){
+    switch (today.getMonth()) {
       case 1:
         mes = 'Enero';
         break;
@@ -174,13 +174,13 @@ export class ObservacionesComponent implements OnInit {
       hora: `${today.getHours()}:${today.getMinutes()}.${today.getSeconds()}`
     };
 
-    this.as.crearObservacion(this.valor).subscribe( resp => {
+    this.as.crearObservacion(this.valor).subscribe(resp => {
       Swal.fire({
         icon: 'success',
         title: 'OK',
         text: 'Se agrego correctamente'
       });
-    }) ;
+    });
 
   }
 
