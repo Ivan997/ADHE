@@ -1,15 +1,17 @@
-<button type="button" class="btn btn-outline-success btn-block" style="margin-top: 10px; margin-bottom: 10px;" routerLink="../estudiantes/0/formCita">+ Agregar Cita</button>
+<button type="button" class="btn btn-outline-success btn-block" style="margin-top: 10px; margin-bottom: 10px;"
+    routerLink="../estudiantes/0/formCita">+ Agregar Cita</button>
 
 <div class="boton">
     <button class="btn btn-info btn-block" (click)="this.citasPendientes = !this.citasPendientes">Citas Pendientes
-      <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!this.citasPendientes"></i>
-      <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="this.citasPendientes"></i>
+        <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!this.citasPendientes"></i>
+        <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="this.citasPendientes"></i>
     </button>
 </div>
 <div *ngIf="this.citasPendientes">
     <div *ngFor="let cita of this.dates">
         <div class="card" style="margin-bottom: 10px;">
-            <div class="card-header" [ngClass]="{'bg-danger': comparar(cita)===0 , 'bg-success': comparar(cita)===2 , 'bg-warning': comparar(cita)===1 , 'bg-info': comparar(cita)===-1}">
+            <div class="card-header"
+                [ngClass]="{'bg-danger': comparar(cita)===0 , 'bg-success': comparar(cita)===2 , 'bg-warning': comparar(cita)===1 , 'bg-info': comparar(cita)===-1}">
                 <span class="">{{cita.date | date :'fullDate'}} - {{cita.date | date :'shortTime'}}</span>
                 <br>
                 <span>Registro: {{cita.registro}}</span>
@@ -17,11 +19,11 @@
                 <span>Nombre: {{cita.nombre}}</span>
             </div>
             <div class="card-body">
-                <img style="float: left; margin-right: 15px;" [src]="cita.photo" [alt]="cita.id" height="150px" width="150px">
+                <img style="float: left; margin-right: 15px;" [src]="cita.photo" [alt]="cita.id" height="150px"
+                    width="150px">
                 <aside>
                     <h5 class="card-title">Área: {{cita.location}}</h5>
                     <p class="card-text">Nota: <br> {{cita.notes}}</p>
-                    <!-- <button class="btn btn-primary">Ver Cita</button> -->
                 </aside>
             </div>
         </div>
@@ -30,14 +32,15 @@
 
 <div class="boton">
     <button class="btn btn-info btn-block" (click)="this.citasPasadas = !this.citasPasadas">Citas Pasadas
-      <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!this.citasPasadas"></i>
-      <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="this.citasPasadas"></i>
+        <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!this.citasPasadas"></i>
+        <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="this.citasPasadas"></i>
     </button>
 </div>
 <div *ngIf="this.citasPasadas">
     <div *ngFor="let cita of this.passDates">
         <div class="card" style="margin-bottom: 10px;">
-            <div class="card-header" [ngClass]="{'bg-success': comparar(cita)===0 , 'bg-danger': comparar(cita)===2 , 'bg-warning': comparar(cita)===1 , 'bg-info': comparar(cita)===-1}">
+            <div class="card-header"
+                [ngClass]="{'bg-success': comparar(cita)===0 , 'bg-danger': comparar(cita)===2 , 'bg-warning': comparar(cita)===1 , 'bg-info': comparar(cita)===-1}">
                 <span class="">{{cita.date | date :'fullDate'}} - {{cita.date | date :'shortTime'}}</span>
                 <br>
                 <span>Registro: {{cita.registro}}</span>
@@ -45,11 +48,11 @@
                 <span>Nombre: {{cita.nombre}}</span>
             </div>
             <div class="card-body">
-                <img style="float: left; margin-right: 15px;" [src]="cita.photo" [alt]="cita.id" height="150px" width="150px">
+                <img style="float: left; margin-right: 15px;" [src]="cita.photo" [alt]="cita.id" height="150px"
+                    width="150px">
                 <aside>
                     <h5 class="card-title">Área: {{cita.location}}</h5>
                     <p class="card-text">Nota: <br> {{cita.notes}}</p>
-                    <!-- <button class="btn btn-primary">Ver Cita</button> -->
                 </aside>
             </div>
         </div>

@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
     registro: '',
     tipo: '',
     turno: '',
-    foto : ''
+    foto: ''
   };
   isTimetableVisible = false;
   areSubjectsVisible = false;
@@ -27,21 +27,19 @@ export class ProfileComponent implements OnInit {
   constructor(private as: AlumnosService) {
     this.registroActual = as.alumnoActual;
     console.log(this.registroActual);
-   }
+  }
 
   ngOnInit() {
 
-    let alumnxs = [];
+    let alumnxs;
 
     const promesaAlumno = new Promise((resolve) => {
       this.as.getAlumnos(this.registroActual).subscribe((resp) => {
-        console.log('resp');
+        console.log('resp', resp);
         alumnxs = resp;
         resolve();
       });
     }).then(() => {
-      // console.log('resolved');
-      // console.log(alumnxs);
       this.student.nombre = alumnxs.nombre;
       this.student.carrera = alumnxs.carrera;
       this.student.grupo = alumnxs.grupo;
