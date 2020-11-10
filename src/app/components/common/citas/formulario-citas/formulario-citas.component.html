@@ -3,7 +3,8 @@
         <div class="form-group row">
             <label class="col-2 col-form-label">Registro</label>
             <div class="col-8">
-                <input class="form-control" name="registro" type="text" placeholder="Registro" formControlName="registro" [class.is-invalid]="registroValido">
+                <input class="form-control" name="registro" type="text" placeholder="Registro"
+                    formControlName="registro" [class.is-invalid]="registroValido">
                 <small *ngIf="registroValido" class="text-danger">Ingrese un valor valido porfavor</small>
             </div>
         </div>
@@ -12,7 +13,8 @@
         <div class="form-group row">
             <label class="col-2 col-form-label">Nombre</label>
             <div class="col-8">
-                <input class="form-control" name="nombre" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreValido">
+                <input class="form-control" name="nombre" type="text" placeholder="Nombre" formControlName="nombre"
+                    [class.is-invalid]="nombreValido">
                 <small *ngIf="nombreValido" class="text-danger">Ingrese un valor valido porfavor</small>
             </div>
         </div>
@@ -21,7 +23,8 @@
         <div class="form-group row">
             <label class="col-2 col-form-label">Apellido</label>
             <div class="col-8">
-                <input class="form-control" name="apellido" type="text" placeholder="Apellido" formControlName="apellido" [class.is-invalid]="apellidoValido">
+                <input class="form-control" name="apellido" type="text" placeholder="Apellido"
+                    formControlName="apellido" [class.is-invalid]="apellidoValido">
                 <small *ngIf="apellidoValido" class="text-danger">Ingrese un valor valido porfavor</small>
             </div>
         </div>
@@ -30,7 +33,8 @@
         <div class="form-group row">
             <label class="col-2 col-form-label">Encargado</label>
             <div class="col-8">
-                <input class="form-control" name="encargado" type="text" placeholder="Encargado" formControlName="encargado" [class.is-invalid]="encargadoValido">
+                <input class="form-control" name="encargado" type="text" placeholder="Encargado"
+                    formControlName="encargado" [class.is-invalid]="encargadoValido">
                 <small *ngIf="encargadoValido" class="text-danger">Ingrese un valor valido porfavor</small>
             </div>
         </div>
@@ -39,7 +43,8 @@
             <label class="col-2 col-form-label">Fecha</label>
             <div class="col-8">
 
-                <input class="form-control" name="fecha" type="text" placeholder="Fecha" formControlName="fecha" [class.is-invalid]="fechaValido">
+                <input class="form-control" name="fecha" type="text" placeholder="Fecha" formControlName="fecha"
+                    [class.is-invalid]="fechaValido">
                 <small *ngIf="fechaValido" class="text-danger">Ingrese un valor valido porfavor</small>
             </div>
         </div>
@@ -47,7 +52,8 @@
         <div class="form-group row">
             <label class="col-2 col-form-label">Hora</label>
             <div class="col-8">
-                <input class="form-control" name="hora" type="text" placeholder="Hora" formControlName="hora" [class.is-invalid]="horaValido">
+                <input class="form-control" name="hora" type="text" placeholder="Hora" formControlName="hora"
+                    [class.is-invalid]="horaValido">
                 <small *ngIf="horaValido" class="text-danger">Ingrese un valor valido porfavor</small>
             </div>
         </div>
@@ -56,8 +62,13 @@
         <div class="form-group row">
             <label class="col-2 col-form-label">Área de formación Integral</label>
             <div class="col-8">
-                <input class="form-control" name="area" type="text" placeholder="Área de formación Integral" formControlName="area" [class.is-invalid]="areaValido">
-                <small *ngIf="areaValido" class="text-danger">Ingrese un valor valido porfavor</small>
+                <select class="custom-select" formControlName="area" [class.is-invalid]="areaValido">
+                    <option disabled selected value="">Selecciona una opción</option>
+                    <option value="GOE">GOE</option>
+                    <option value="Tutorias">Tutorias</option>
+                    <option value="Asesorias">Asesorias</option>
+                </select>
+                <small *ngIf="areaValido" class="text-danger">Favor de seleccionar un área</small>
             </div>
         </div>
 
