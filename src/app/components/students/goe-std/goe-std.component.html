@@ -21,17 +21,17 @@
         <div *ngFor="let nota of notas; let i = index">
             <div *ngIf="nota.area == 'GOE'" class="card " style="margin-top: 10px; ">
                 <div class="card-header ">
-                    <span class=" ">{{nota.fecha}} - {{nota.hora}}</span>
+                    <!-- <span class=" ">{{nota.fecha}} - {{nota.hora}}</span> -->
                     <!-- <span class=" ">{{nota.date | date :'fullDate'}} - {{nota.date | date :'shortTime'}}</span> -->
                     <br>
                     <span>Encargado: {{nota.encargado}}</span>
                     <br>
-                    <span>Materia: {{nota.area}}</span>
+                    <!-- <span>Materia: {{nota.area}}</span> -->
 
                 </div>
                 <div class="card-body ">
                     <p class="card-text "><strong>Observación:</strong> <br>{{getNota(i)}}</p>
-                    <!-- <button class="btn btn-primary btn-block " (click)="muestra(i) ">Ver Observación completa</button> -->
+                    <button class="btn btn-primary btn-block " (click)="muestra(i) ">Ver Observación completa</button>
                 </div>
             </div>
         </div>

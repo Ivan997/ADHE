@@ -10,12 +10,15 @@
     </div>
 
     <hr>
-    <button type="button " class="btn btn-block " [ngClass]="{ 'btn-outline-info': observaciones, 'btn-info': !observaciones} " (click)="observaciones=! observaciones ">Observaciones
-      <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!observaciones"></i>
-      <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="observaciones"></i>
+    <button type="button " class="btn btn-block "
+        [ngClass]="{ 'btn-outline-info': observaciones, 'btn-info': !observaciones} "
+        (click)="observaciones=! observaciones ">Observaciones
+        <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!observaciones"></i>
+        <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="observaciones"></i>
     </button>
     <div *ngIf="observaciones " class="col ">
-        <button type="button " class="btn btn-outline-warning btn-block " style="margin-top: 10px; " routerLink="../formObserv">+ Agregar Observacion</button>
+        <button type="button " class="btn btn-outline-warning btn-block " style="margin-top: 10px; "
+            routerLink="../formObserv">+ Agregar Observacion</button>
 
         <!-- tarjetas de las observaciones  -->
         <div *ngFor=" let nota of notas; let i=index ">
@@ -26,7 +29,7 @@
                     <br>
                     <span>Encargado: {{nota.encargado}}</span>
                     <br>
-                    <span>Materia: {{nota.area}}</span>
+                    <!-- <span>Materia: {{nota.area}}</span> -->
 
                 </div>
                 <div class="card-body ">
@@ -38,9 +41,10 @@
     </div>
 
     <hr>
-    <button type="button " class="btn btn-block " [ngClass]="{ 'btn-outline-info': clases, 'btn-info': !clases} " (click)="clases=! clases " style="margin-bottom: 10px; ">Clases
-      <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!clases"></i>
-      <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="clases"></i>
+    <button type="button " class="btn btn-block " [ngClass]="{ 'btn-outline-info': clases, 'btn-info': !clases} "
+        (click)="clases=! clases " style="margin-bottom: 10px; ">Clases
+        <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!clases"></i>
+        <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="clases"></i>
     </button>
     <div *ngIf="clases " class="col ">
 
@@ -81,6 +85,7 @@
             </tbody>
         </table>
 
-        <button type="button " class="btn btn-outline-success btn-block " style="margin-bottom: 10px; ">+ Agregar Clase</button>
+        <button type="button " class="btn btn-outline-success btn-block " style="margin-bottom: 10px; ">+ Agregar
+            Clase</button>
     </div>
 </div>

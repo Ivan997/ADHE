@@ -15,14 +15,14 @@ export class GoeStdComponent implements OnInit {
   citas = false;
   citasAnteriores = false;
   today = new Date();
-  pos = -1;s
+  pos = -1; s
 
   // fecha1 = new Date('12/09/2019');//MM/DD/AAAA HH:MM:SS
   // fecha2 = new Date('10/12/2019');//MM/DD/AAAA HH:MM:SS
   // fecha3 = new Date('09/30/2020 3:25 pm');//MM/DD/AAAA HH:MM:SS
   // fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
 
-  notas: ObservacionesModel [] = [];
+  notas: ObservacionesModel[] = [];
 
   dates = [];
   passDates = [];
@@ -32,22 +32,15 @@ export class GoeStdComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let citx =  [];
-    let notx: ObservacionesModel [] = [];
+    let citx = [];
+    let notx: ObservacionesModel[] = [];
 
-    let  promesaObserv = new Promise((resolve) => {
-      this.as.getObservaciones('GOE').subscribe(resp => {
-        // console.log(resp);
-        notx = resp;
-        resolve();
-      });
-    }).then(() => {
-      notx.forEach(index => {
-        if(index.registro === this.as.alumnoActual){
-          this.notas.push(index);
-        }
-      });
-    });
+    let observaciones = this.as.getObservaciones().subscribe(
+      (notes) => {
+        this.notas = notes.filter((note) => note.area == "GOE" && note.registro == this.as.alumnoActual);
+        console.log(this.notas.length);
+      }
+    )
 
     let promesaCitas = new Promise((resolve) => {
       this.as.getCitas().subscribe(resp => {
@@ -57,7 +50,7 @@ export class GoeStdComponent implements OnInit {
     }).then(() => {
       citx.forEach(index => {
 
-        if(index.registro === this.as.alumnoActual){
+        if (index.registro === this.as.alumnoActual) {
           // console.log('Buscando en index');
 
           const fecha = index.fecha.split('/');
@@ -78,7 +71,7 @@ export class GoeStdComponent implements OnInit {
             area: index.area,
             registro: index.registro,
             nombre: index.nombre + ' ' + index.apellido,
-            encargado : index.encargado,
+            encargado: index.encargado,
             date: fec,
             location: index.area,
             notes: index.nota,
@@ -86,13 +79,13 @@ export class GoeStdComponent implements OnInit {
             photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/' + this.as.alumnoActual + '.jpg'
           };
 
-          if ( anioC < anioH ){
+          if (anioC < anioH) {
             this.passDates.push(objCita);
             this.actualizarCitaPass(index);
           }
-          else if ( anioC > anioH ){ this.dates.push(objCita); }
-          else if ( mesC > mesH){ this.dates.push(objCita); }
-          else if ( anioC === anioH && mesC === mesH  && diaC >= diaH){ this.dates.push(objCita); }
+          else if (anioC > anioH) { this.dates.push(objCita); }
+          else if (mesC > mesH) { this.dates.push(objCita); }
+          else if (anioC === anioH && mesC === mesH && diaC >= diaH) { this.dates.push(objCita); }
           else {
             this.passDates.push(objCita);
             if ((index.asistencia && !index.finalizado) || !index.finalizado) { this.actualizarCitaPass(index); }
@@ -106,12 +99,12 @@ export class GoeStdComponent implements OnInit {
           });
         }
 
-        });
+      });
     });
   }
 
-  actualizarCitaPass(cita: CitasModel): any{
-    if (!cita.finalizado || cita.asistencia){
+  actualizarCitaPass(cita: CitasModel): any {
+    if (!cita.finalizado || cita.asistencia) {
       console.log('Actualizando');
       cita.finalizado = true;
       this.as.actualizarCita(cita).subscribe();
@@ -120,11 +113,11 @@ export class GoeStdComponent implements OnInit {
 
 
 
-  verificaCita(index: number){
+  verificaCita(index: number) {
 
-    if (this.dates[index].location === 'GOE'){
+    if (this.dates[index].location === 'GOE') {
       return this.dates[index].finished;
-    }else{
+    } else {
       return true;
     }
 
@@ -138,15 +131,15 @@ export class GoeStdComponent implements OnInit {
   //   }
   // }
 
-  finalizado(cita){
+  finalizado(cita) {
     this.dates.map(dat => {
-      if ( dat.date.getTime() === cita.date.getTime() ){
+      if (dat.date.getTime() === cita.date.getTime()) {
         dat.finished = true;
       }
     });
   }
 
-  comparar(cita): number{
+  comparar(cita): number {
     // retorna :
     // -1 si la fecha ya paso
     // 0 si es hoy
@@ -163,36 +156,36 @@ export class GoeStdComponent implements OnInit {
     const mesH = this.today.getMonth();
     const anioH = this.today.getFullYear();
 
-    if (anio < anioH || mes < mesH){
+    if (anio < anioH || mes < mesH) {
       this.pos = -1;
       this.finalizado(cita);
       return this.pos;
     }
 
     // ya paso el mes, dia o año?
-    if (anio > anioH || mes > mesH || dia > (diaH + 7)){
+    if (anio > anioH || mes > mesH || dia > (diaH + 7)) {
       this.pos = 2;
       return this.pos;
     }
 
-    if (dia < diaH){
+    if (dia < diaH) {
       this.pos = -1;
       this.finalizado(cita);
-    }else if (dia <= (diaH + 7) && dia > diaH){
+    } else if (dia <= (diaH + 7) && dia > diaH) {
       this.pos = 1;
-    }else {
+    } else {
       this.pos = 0;
     }
 
     return this.pos;
   }
 
-  getNota(index: number){
+  getNota(index: number) {
     return this.notas[index].observacion.substring(500, -1);
   }
 
-  muestra(index: number){
-    console.log(index, '=' , this.notas[index]);
+  muestra(index: number) {
+    console.log(index, '=', this.notas[index]);
   }
 
 

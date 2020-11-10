@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private as: AlumnosService) {
     this.registroActual = as.alumnoActual;
-    console.log(this.registroActual);
+    // console.log(this.registroActual);
   }
 
   ngOnInit() {
@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
 
     const promesaAlumno = new Promise((resolve) => {
       this.as.getAlumnos(this.registroActual).subscribe((resp) => {
-        console.log('resp', resp);
+        // console.log('resp', resp);
         alumnxs = resp;
         resolve();
       });

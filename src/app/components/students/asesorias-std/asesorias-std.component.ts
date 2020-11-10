@@ -23,47 +23,40 @@ export class AsesoriasStdComponent implements OnInit {
   fecha3 = new Date('09/12/2020');//MM/DD/AAAA HH:MM:SS
   fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
 
-  notas: ObservacionesModel [] = [];
+  notas: ObservacionesModel[] = [];
 
   class = [
-    {name: 'Matematicas', attendant: 'Ivan Arredondo', asistenciaP1: 10, partial1: 100, asistenciaP2: 10, partial2: 50, partial3: 0, asistenciaP3: 10, average: 0},
-    {name: 'Español', attendant: 'Ivan Arredondo', asistenciaP1: 10, partial1: 100, asistenciaP2: 10, partial2: 50, partial3: 20, asistenciaP3: 10, average: 0},
-    {name: 'Ingles', attendant: 'Jessica Lizette', asistenciaP1: 10, partial1: 100, asistenciaP2: 10, partial2: 50, partial3: 0, asistenciaP3: 10, average: 0}
+    { name: 'Matematicas', attendant: 'Ivan Arredondo', asistenciaP1: 10, partial1: 100, asistenciaP2: 10, partial2: 50, partial3: 0, asistenciaP3: 10, average: 0 },
+    { name: 'Español', attendant: 'Ivan Arredondo', asistenciaP1: 10, partial1: 100, asistenciaP2: 10, partial2: 50, partial3: 20, asistenciaP3: 10, average: 0 },
+    { name: 'Ingles', attendant: 'Jessica Lizette', asistenciaP1: 10, partial1: 100, asistenciaP2: 10, partial2: 50, partial3: 0, asistenciaP3: 10, average: 0 }
   ];
 
   ngOnInit(): void {
 
     let notx: ObservacionesModel[] = [];
 
-    const promesaNotas = new Promise((resolve) => {
-      this.as.getObservaciones('Asesorias').subscribe(resp => {
-        console.log(resp);
-        notx = resp;
-        resolve();
-      });
-    }).then(() => {
-      notx.forEach( index => {
-        if(index.registro === this.as.alumnoActual){
-          this.notas.push(index);
-        }
-      });
-    });
+    let observaciones = this.as.getObservaciones().subscribe(
+      (notes) => {
+        this.notas = notes.filter((note) => note.area == "Asesorias" && note.registro == this.as.alumnoActual);
+        console.log(this.notas.length);
+      }
+    )
 
     // this.notas.sort((a, b) => {
     //   return b.fecha.getTime() - a.fecha.getTime();
     // });
   }
 
-  getNota(index: number){
+  getNota(index: number) {
     return this.notas[index].observacion.substring(500, -1);
   }
 
-  muestra(index: number){
-    console.log(index, '=' , this.notas[index]);
+  muestra(index: number) {
+    console.log(index, '=', this.notas[index]);
   }
 
-  getAverage(index: number): number{
-    this.class[index].average = (( this.class[index].partial1 + this.class[index].partial2 + this.class[index].partial3) / 3);
+  getAverage(index: number): number {
+    this.class[index].average = ((this.class[index].partial1 + this.class[index].partial2 + this.class[index].partial3) / 3);
 
     return this.class[index].average;
   }
