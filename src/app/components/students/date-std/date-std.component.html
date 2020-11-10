@@ -12,14 +12,14 @@
         <div class="card" style="margin-bottom: 10px;">
             <div class="card-header"
                 [ngClass]="{'bg-danger': comparar(cita)===0 , 'bg-success': comparar(cita)===2 , 'bg-warning': comparar(cita)===1 , 'bg-info': comparar(cita)===-1}">
-                <span class="">{{formatearFecha(cita.date)}}</span>
+                <span class="row">{{formatearFecha(cita.date)}}</span>
+                <span class="row">Registro: {{cita.registro}}</span>
+                <span class="row">Nombre: {{cita.nombre}}</span>
             </div>
             <div class="card-body">
                 <img style="float: left; margin-right: 15px;" [src]="cita.photo" [alt]="cita.id" height="150px"
                     width="150px">
                 <aside>
-                    <h5 class="card-title">Registro: <strong>{{cita.registro}}</strong></h5>
-                    <h5 class="card-title">Nombre: {{cita.nombre}}</h5>
                     <h5 class="card-title">Área: {{cita.location}}</h5>
                     <p class="card-text">Nota: <br> {{cita.notes}}</p>
                 </aside>
@@ -39,7 +39,9 @@
         <div class="card" style="margin-bottom: 10px;">
             <div class="card-header"
                 [ngClass]="{'bg-success': comparar(cita)===0 , 'bg-danger': comparar(cita)===2 , 'bg-warning': comparar(cita)===1 , 'bg-info': comparar(cita)===-1}">
-                <span class="">{{formatearFecha(cita.date)}}</span>
+                <span class="row">{{formatearFecha(cita.date)}}</span>
+                <span class="row">Registro: {{cita.registro}}</span>
+                <span class="row">Nombre: {{cita.nombre}}</span>
             </div>
             <div class="card-body">
                 <img style="float: left; margin-right: 15px;" [src]="cita.photo" [alt]="cita.id" height="150px"
