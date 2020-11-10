@@ -12,7 +12,7 @@
         <div class="card" style="margin-bottom: 10px;">
             <div class="card-header"
                 [ngClass]="{'bg-danger': comparar(cita)===0 , 'bg-success': comparar(cita)===2 , 'bg-warning': comparar(cita)===1 , 'bg-info': comparar(cita)===-1}">
-                <span class="">{{cita.date | date :'fullDate'}} - {{cita.date | date :'shortTime'}}</span>
+                <span class="">{{formatearFecha(cita.date)}}</span>
                 <br>
                 <span>Registro: {{cita.registro}}</span>
                 <br>
@@ -41,7 +41,7 @@
         <div class="card" style="margin-bottom: 10px;">
             <div class="card-header"
                 [ngClass]="{'bg-success': comparar(cita)===0 , 'bg-danger': comparar(cita)===2 , 'bg-warning': comparar(cita)===1 , 'bg-info': comparar(cita)===-1}">
-                <span class="">{{cita.date | date :'fullDate'}} - {{cita.date | date :'shortTime'}}</span>
+                <span class="">{{formatearFecha(cita.date)}}</span>
                 <br>
                 <span>Registro: {{cita.registro}}</span>
                 <br>
