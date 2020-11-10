@@ -43,18 +43,23 @@
             <label class="col-2 col-form-label">Fecha</label>
             <div class="col-8">
 
-                <input class="form-control" name="fecha" type="text" placeholder="Fecha" formControlName="fecha"
-                    [class.is-invalid]="fechaValido">
-                <small *ngIf="fechaValido" class="text-danger">Ingrese un valor valido porfavor</small>
+                <input class="form-control" type="date" value="2011-08-19" id="example-date-input"
+                    formControlName="fecha" placeholder="Fecha" formControlName="fecha" [class.is-invalid]="fechaValido"
+                    (input)="validarFecha($event)" [min]="fecha">
+                <small *ngIf="fechaValido || esFinDeSemana" class="text-danger">Ingrese un valor valido
+                    porfavor</small>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-2 col-form-label">Hora</label>
             <div class="col-8">
-                <input class="form-control" name="hora" type="text" placeholder="Hora" formControlName="hora"
-                    [class.is-invalid]="horaValido">
-                <small *ngIf="horaValido" class="text-danger">Ingrese un valor valido porfavor</small>
+                <input class="form-control" type="time" value="13:45:00" id="example-time-input" placeholder="Hora"
+                    formControlName="hora" [class.is-invalid]="horaValido">
+                <!-- <input class="form-control" name="hora" type="text" placeholder="Hora" formControlName="hora"
+                    [class.is-invalid]="horaValido"> -->
+                <small *ngIf="horaValido" class="text-danger">Ingrese un valor valido
+                    porfavor</small>
             </div>
         </div>
 
