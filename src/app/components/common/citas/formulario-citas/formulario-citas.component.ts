@@ -68,7 +68,7 @@ export class FormularioCitasComponent implements OnInit {
   cargarDatos(){
 
     let nombreCompleto: string = this.as.student.nombre;
-    let nombres = '';
+    let nombres = [];
     let nombre = '';
     let apellido = '';
     let reg = '';

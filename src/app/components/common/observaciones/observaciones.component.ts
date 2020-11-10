@@ -77,7 +77,7 @@ export class ObservacionesComponent implements OnInit {
       }
     }
 
-    if(reg === ''){
+    if (reg === ''){
       reg = '';
     }
 

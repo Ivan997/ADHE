@@ -4,13 +4,14 @@ import { map, retry } from 'rxjs/operators';
 import { ObservacionesModel } from '../models/observaciones.model';
 import { CitasModel } from '../models/citas.model';
 import { stringify } from '@angular/compiler/src/util';
+import { AlumnoModel } from '../models/alumno.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlumnosService {
 
-  student = {};
+  student = new AlumnoModel();
 
   alumnoActual = '';
 
@@ -41,7 +42,7 @@ export class AlumnosService {
 
   private getTodosAlumnos(alumnosObj: object) {
 
-    let alumno = [];
+    let alumno: AlumnoModel[] = [];
     if (alumnosObj === null) { return []; }
 
     Object.keys(alumnosObj).forEach(key => {
@@ -66,7 +67,7 @@ export class AlumnosService {
   }
   private getAlumnoCorrecto(alumnosObj: object, registro: string) {
 
-    let alumno = {};
+    let alumno = new AlumnoModel();
     if (alumnosObj === null) { return []; }
 
     Object.keys(alumnosObj).forEach(key => {
@@ -84,7 +85,6 @@ export class AlumnosService {
         // console.log('encontrado');
         alumno = al;
       }
-
     });
 
     // console.log(alumno);
