@@ -56,8 +56,7 @@
             <div *ngIf=" !cita.finalizado && cita.area === 'Tutorias' " class="card" style="margin-top: 10px;">
                 <div class="card-header"
                     [ngClass]="{'bg-danger': comparar(cita)===0 , 'bg-success': comparar(cita)===2 , 'bg-warning': comparar(cita)===1 , 'bg-info': comparar(cita)===-1}">
-                    <span class="">{{cita.date | date :'fullDate'}} - {{cita.date | date :'shortTime'}}</span>
-
+                    <span class="">{{formatearFecha(cita.date)}}</span>
                 </div>
                 <div class="card-body">
                     <img style="float: left; margin-right: 15px;" [src]="cita.photo" [alt]="cita.id" height="150px"
@@ -80,8 +79,7 @@
                 <div *ngIf="cita.area === 'Tutorias'" class="card" style="margin-top: 10px;">
                     <div class="card-header"
                         [ngClass]="{'bg-success': comparar(cita)===0 , 'bg-danger': comparar(cita)===2 , 'bg-warning': comparar(cita)===1 , 'bg-info': comparar(cita)===-1}">
-                        <span class="">{{cita.date | date :'fullDate'}} - {{cita.date | date :'shortTime'}}</span>
-
+                        <span class="">{{formatearFecha(cita.date)}}</span>
                     </div>
                     <div class="card-body">
                         <img style="float: left; margin-right: 15px;" [src]="cita.photo" [alt]="cita.id" height="150px"

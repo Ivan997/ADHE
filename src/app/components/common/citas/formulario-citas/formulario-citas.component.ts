@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { CitasModel } from '../../../../models/citas.model';
 import { AlumnosService } from '../../../../services/alumnos.service';
 import Swal from 'sweetalert2';
-import moment, { isMoment } from 'moment';
+import moment from 'moment';
 moment.locale('es');
 
 @Component({

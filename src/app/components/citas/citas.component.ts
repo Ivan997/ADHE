@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CitasModel } from '../../models/citas.model';
 import { AlumnosService } from '../../services/alumnos.service';
-
+import moment from 'moment';
+moment.locale('es');
 @Component({
   selector: 'app-citas',
   templateUrl: './citas.component.html',
@@ -93,11 +94,7 @@ export class CitasComponent implements OnInit {
   }
 
   formatearFecha(fecha) {
-    let aux = new Date(fecha);
-    let hours = aux.getHours();
-    var ampm = hours >= 12 ? ' PM' : ' AM';
-    let format = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    return aux.toLocaleDateString('es-ES', format) + ampm;
+    return moment(fecha).format("dddd, DD MMMM YYYY hh:mm A");
   }
 
 

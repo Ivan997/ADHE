@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
 import { CitasModel } from '../../../models/citas.model';
+import moment from 'moment';
+moment.locale('es');
 
 @Component({
   selector: 'app-date-std',
@@ -98,12 +100,9 @@ export class DateStdComponent implements OnInit {
 
   }
 
+
   formatearFecha(fecha) {
-    let aux = new Date(fecha);
-    let hours = aux.getHours();
-    var ampm = hours >= 12 ? ' PM' : ' AM';
-    let format = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    return aux.toLocaleDateString('es-ES', format) + ampm;
+    return moment(fecha).format("dddd, DD MMMM YYYY hh:mm A");
   }
 
   actualizarCitaPass(cita: CitasModel): any {
