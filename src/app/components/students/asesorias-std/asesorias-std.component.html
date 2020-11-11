@@ -85,7 +85,43 @@
             </tbody>
         </table>
 
-        <button type="button " class="btn btn-outline-success btn-block " style="margin-bottom: 10px; ">+ Agregar
+        <button type="button " class="btn btn-outline-success btn-block " style="margin-bottom: 10px; "
+            (click)="open(content)">+ Agregar
             Clase</button>
+
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Agregar Clase</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form autocomplete="off" [formGroup]="forma" #f="ngForm">
+            <div class="container">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">Materia</label>
+                    <div class="col-8">
+                        <input class="form-control" name="materia" type="text" placeholder="Materia"
+                            formControlName="materia" [class.is-invalid]="materiaValido">
+                        <small *ngIf="materiaValido" class="text-danger">Ingrese un valor valido</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">Profesor</label>
+                    <div class="col-8">
+                        <input class="form-control" name="profesor" type="text" placeholder="Profesor"
+                            formControlName="profesor" [class.is-invalid]="profesorValido">
+                        <small *ngIf="profesorValido" class="text-danger">Ingrese un valor valido</small>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Agregar</button>
+    </div>
+</ng-template>

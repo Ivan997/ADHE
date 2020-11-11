@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
 import { ObservacionesModel } from '../../../models/observaciones.model';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-asesorias-std',
@@ -9,8 +11,9 @@ import { ObservacionesModel } from '../../../models/observaciones.model';
   ]
 })
 export class AsesoriasStdComponent implements OnInit {
+  forma: FormGroup;
 
-  constructor(private as: AlumnosService) { }
+  constructor(private as: AlumnosService, private modalService: NgbModal, private fb: FormBuilder) { }
 
   observaciones = false;
   clases = false;
@@ -61,4 +64,56 @@ export class AsesoriasStdComponent implements OnInit {
     return this.class[index].average;
   }
 
+  open(content) {
+    this.crearFormulario();
+    this.modalService.open(content, { backdrop: 'static' })
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  crearFormulario() {
+    this.forma = this.fb.group({
+      materia: ['', [Validators.required]],
+      profesor: ['', [Validators.required]],
+      asistencia1P: ['', [Validators.required]],
+      calificacion1P: ['', [Validators.required]],
+      asistencia2P: ['', [Validators.required]],
+      calificacion2P: ['', [Validators.required]],
+      asistencia3P: ['', [Validators.required]],
+      calificacion3P: ['', [Validators.required]],
+      registro: ['', [Validators.required]],
+    });
+    this.cargarDatos();
+  }
+
+  cargarDatos() {
+    this.forma.setValue({
+      materia: '',
+      profesor: '',
+      asistencia1P: 0,
+      calificacion1P: 0,
+      asistencia2P: 0,
+      calificacion2P: 0,
+      asistencia3P: 0,
+      calificacion3P: 0,
+      registro: this.as.alumnoActual
+    })
+  }
+
+  get materiaValido() {
+    return this.forma.get('materia').invalid && this.forma.get('materia').touched;
+  }
+  get profesorValido() {
+    return this.forma.get('profesor').invalid && this.forma.get('profesor').touched;
+  }
 }
+
+
