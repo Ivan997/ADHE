@@ -2,6 +2,8 @@ import { Component, OnInit, resolveForwardRef } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
 import { ObservacionesModel } from '../../../models/observaciones.model';
 import { CitasModel } from '../../../models/citas.model';
+import moment from 'moment'
+moment.locale('es');
 
 @Component({
   selector: 'app-goe-std',
@@ -103,6 +105,9 @@ export class GoeStdComponent implements OnInit {
     });
   }
 
+  formatearFecha(fecha) {
+    return moment(fecha).format("dddd, DD MMMM YYYY hh:mm A");
+  }
   actualizarCitaPass(cita: CitasModel): any {
     if (!cita.finalizado || cita.asistencia) {
       console.log('Actualizando');

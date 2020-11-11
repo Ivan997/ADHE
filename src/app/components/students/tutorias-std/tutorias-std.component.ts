@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
 import { ObservacionesModel } from '../../../models/observaciones.model';
 import { CitasModel } from '../../../models/citas.model';
+import moment from 'moment';
+moment.locale('es');
 
 @Component({
   selector: 'app-tutorias-std',
@@ -190,4 +192,7 @@ export class TutoriasStdComponent implements OnInit {
   }
 
 
+  formatearFecha(fecha) {
+    return moment(fecha).format("dddd, DD MMMM YYYY hh:mm A");
+  }
 }
