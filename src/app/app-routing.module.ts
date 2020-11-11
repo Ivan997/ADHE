@@ -12,28 +12,36 @@ import { GoeStdComponent } from './components/students/goe-std/goe-std.component
 import { AsesoriasStdComponent } from './components/students/asesorias-std/asesorias-std.component';
 import { ObservacionesComponent } from './components/common/observaciones/observaciones.component';
 import { FormularioCitasComponent } from './components/common/citas/formulario-citas/formulario-citas.component';
+import { FormularioFormatoComponent } from './components/common/formulario-formato/formulario-formato.component';
 
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'inicio', component: DashboardComponent, children: [
-    {path: 'estudiantes', children:[
-      {path: '', component: StudentsComponent},
-      {path: ':id', component: BaseStdComponent, children: [
-        {path: 'formObserv', component: ObservacionesComponent},
-        {path: 'formCita', component: FormularioCitasComponent},
-        {path: 'perfil', component: ProfileComponent},
-        {path: 'citas', component: DateStdComponent},
-        {path: 'tutorias', component: TutoriasStdComponent},
-        {path: 'goe', component: GoeStdComponent},
-        {path: 'asesorias', component: AsesoriasStdComponent},
-        {path: '**', redirectTo: 'perfil'}
-      ]}
-    ]},
-    {path: 'citas', component: CitasComponent},
-    {path: '**', redirectTo: 'estudiantes'},
-  ]},
-  {path: '**', redirectTo: ''}
+  { path: '', component: LoginComponent },
+  {
+    path: 'inicio', component: DashboardComponent, children: [
+      {
+        path: 'estudiantes', children: [
+          { path: '', component: StudentsComponent },
+          {
+            path: ':id', component: BaseStdComponent, children: [
+              { path: 'formObserv', component: ObservacionesComponent },
+              { path: 'formCita', component: FormularioCitasComponent },
+              { path: 'formFormato', component: FormularioFormatoComponent },
+              { path: 'perfil', component: ProfileComponent },
+              { path: 'citas', component: DateStdComponent },
+              { path: 'tutorias', component: TutoriasStdComponent },
+              { path: 'goe', component: GoeStdComponent },
+              { path: 'asesorias', component: AsesoriasStdComponent },
+              { path: '**', redirectTo: 'perfil' }
+            ]
+          }
+        ]
+      },
+      { path: 'citas', component: CitasComponent },
+      { path: '**', redirectTo: 'estudiantes' },
+    ]
+  },
+  { path: '**', redirectTo: '' }
 
 ];
 

@@ -1,0 +1,78 @@
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="save(f)" #f="ngForm">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col">
+                <h5>Registro: {{forma.value.registro}}</h5>
+            </div>
+            <div class="col ml-2">
+                <h5>Fecha: {{forma.value.fecha}}</h5>
+            </div>
+            <div class="col ml-2">
+                <h5>Hora: {{forma.value.hora}}</h5>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Folio</label>
+            <div class="col-8">
+                <input class="form-control" name="folio" type="text" placeholder="Folio" formControlName="folio"
+                    [class.is-invalid]="folioValido">
+                <small *ngIf="folioValido" class="text-danger">Ingrese un valor valido</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Tipo</label>
+            <div class="col-8">
+                <input class="form-control" name="tipo" type="text" placeholder="Tipo" formControlName="tipo"
+                    [class.is-invalid]="tipoValido">
+                <small *ngIf="tipoValido" class="text-danger">Ingrese un valor valido</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Encargado</label>
+            <div class="col-8">
+                <input class="form-control" name="encargado" type="text" placeholder="Encargado"
+                    formControlName="encargado" [class.is-invalid]="encargadoValido">
+                <small *ngIf="encargadoValido" class="text-danger">Ingrese un valor valido porfavor</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Avance previas a la entrevista</label>
+            <div class="col-8">
+                <input class="form-control" name="avancePrev" type="text" placeholder="Avance"
+                    formControlName="avancesPrev" [class.is-invalid]="avancesPrevValido">
+                <small *ngIf="avancesPrevValido" class="text-danger">Ingrese un valor valido porfavor</small>
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Observaciones previas a la entrevista</label>
+            <div class="col-8">
+                <input class="form-control" name="observacionesPrev" type="text" placeholder="Observaciones"
+                    formControlName="observacionesPrev" [class.is-invalid]="observacionesPrevValido">
+                <small *ngIf="observacionesPrevValido" class="text-danger">Ingrese un valor valido porfavor</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Avance durante la entrevista</label>
+            <div class="col-8">
+                <input class="form-control" name="avances" type="text" placeholder="Avance" formControlName="avances"
+                    [class.is-invalid]="avancesValido">
+                <small *ngIf="avancesValido" class="text-danger">Ingrese un valor valido porfavor</small>
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Observaciones</label>
+            <div class="col-8">
+                <input class="form-control" name="observaciones" type="text" placeholder="Observaciones"
+                    formControlName="observaciones" [class.is-invalid]="observacionesValido">
+                <small *ngIf="observacionesValido" class="text-danger">Ingrese un valor valido porfavor</small>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-outline-success top" style="margin-bottom: 10px;">Guardar
+                formato</button>
+
+        </div>
+    </div>
+</form>

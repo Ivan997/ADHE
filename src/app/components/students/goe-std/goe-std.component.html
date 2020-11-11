@@ -16,7 +16,8 @@
         <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="observaciones"></i>
     </button>
     <div *ngIf="observaciones" class="col">
-        <button type="button" class="btn btn-outline-warning btn-block top">+ Agregar Formato</button>
+        <button type="button" class="btn btn-outline-success btn-block boton"
+            style="margin-top: 10px; margin-bottom: 10px;" routerLink="../formFormato">+ Agregar Formato</button>
         <!-- tarjetas de las observaciones  -->
         <div *ngFor="let nota of notas; let i = index">
             <div *ngIf="nota.area == 'GOE'" class="card " style="margin-top: 10px; ">
@@ -25,7 +26,7 @@
                     <br>
                     <span>Encargado: {{nota.encargado}}</span>
                     <br>
-                    <!-- <span>Materia: {{nota.area}}</span> -->
+                    <span>Materia: {{nota.registro}}</span>
 
                 </div>
                 <div class="card-body ">
