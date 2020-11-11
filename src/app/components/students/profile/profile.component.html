@@ -37,7 +37,9 @@
                     <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!isTimetableVisible"></i>
                     <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="isTimetableVisible"></i>
                 </div>
+
                 <app-timetable [isMorningShift]="false" *ngIf="isTimetableVisible"></app-timetable>
+
             </div>
         </div>
         <div class="row no-gutters m-2 text-center justify-content-around">

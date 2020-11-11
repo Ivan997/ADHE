@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CitasModel } from '../../models/citas.model';
 import { AlumnosService } from '../../services/alumnos.service';
-import moment from 'moment';
+import * as moment from 'moment';
 moment.locale('es');
 @Component({
   selector: 'app-citas',

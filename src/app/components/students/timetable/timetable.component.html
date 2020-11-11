@@ -1,24 +1,24 @@
-<table class="table table-bordered">
+<table class="table table-bordered table-responsive">
     <thead class="thead-dark">
         <tr>
-            <th scope="col"></th>
-            <th scope="col">Lunes</th>
-            <th scope="col">Martes</th>
-            <th scope="col">Miércoles</th>
-            <th scope="col">Jueves</th>
-            <th scope="col">Viernes</th>
-            <th scope="col">Sábado</th>
+            <th scope="col" style="width: 250px;"></th>
+            <th scope="col" style="width: 250px;">Lunes</th>
+            <th scope="col" style="width: 250px;">Martes</th>
+            <th scope="col" style="width: 250px;">Miércoles</th>
+            <th scope="col" style="width: 250px;">Jueves</th>
+            <th scope="col" style="width: 250px;">Viernes</th>
+            <th scope="col" style="width: 250px;">Sábado</th>
         </tr>
     </thead>
-    <tbody>
-        <tr *ngFor="let class of afternoonShiftHours">
+    <tbody *ngIf="this.horarioActivo">
+        <tr style="width: 250px; font-size: 12px;" *ngFor="let class of afternoonShiftHours; let i = index;">
             <td>{{class}}</td>
-            <td>PRUEBAS</td>
-            <td>PRUEBAS</td>
-            <td>PRUEBAS</td>
-            <td>PRUEBAS</td>
-            <td>PRUEBAS</td>
-            <td>PRUEBAS</td>
+            <td>{{getMateriaHorario('Lunes', i)}}</td>
+            <td>{{getMateriaHorario('Martes', i)}}</td>
+            <td>{{getMateriaHorario('Miercoles', i)}}</td>
+            <td>{{getMateriaHorario('Jueves', i)}}</td>
+            <td>{{getMateriaHorario('Viernes', i)}}</td>
+            <td>{{getMateriaHorario('Sabado', i)}}</td>
         </tr>
     </tbody>
 </table>

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { CitasModel } from '../../../../models/citas.model';
 import { AlumnosService } from '../../../../services/alumnos.service';
 import Swal from 'sweetalert2';
-import moment from 'moment';
+import * as moment from 'moment';
 moment.locale('es');
 
 @Component({
@@ -75,7 +75,7 @@ export class FormularioCitasComponent implements OnInit {
   cargarDatos() {
 
     let nombreCompleto: string = this.as.student.nombre;
-    let nombres = '';
+    let nombres = [];
     let nombre = '';
     let apellido = '';
     let reg = '';
@@ -142,14 +142,15 @@ export class FormularioCitasComponent implements OnInit {
     this.cita.nombre = form.value['nombre'];
     this.cita.apellido = form.value['apellido'];
     this.cita.encargado = form.value['encargado'];
-    this.cita.fecha = form.value['fecha'];
+    const fecha = form.value['fecha'];
     this.cita.hora = form.value['hora'];
     this.cita.area = form.value['area'];
     this.cita.nota = form.value['nota'];
     this.cita.finalizado = false;
     this.cita.asistencia = false;
 
-    this.cita.fecha = moment(this.cita.fecha).format('DD/MM/YYYY')
+    this.cita.fecha = moment(fecha).format('DD/MM/YYYY');
+    // console.log(moment(this.cita.fecha).format('DD/MM/YYYY'));
     console.log(this.cita);
 
     this.as.crearCita(this.cita).subscribe(resp => {

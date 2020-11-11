@@ -1,32 +1,30 @@
-<table class="table table-bordered">
-    <thead>
-      <tr class="table-primary">
-        <th scope="col">Clave</th>
-        <th scope="col">Materia</th>
-        <th scope="col">Div. de la mat.</th>
-        <th scope="col">Profesor</th>
-        <th scope="col">Correo</th>
-        <th scope="col">Grupo</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Tipo pond.</th>
-        <th scope="col">1er Parcial</th>
-        <th scope="col">2do Parcial</th>
-        <th scope="col">3er Parcial</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>ICJ00</td>
-        <td>TECNOLOGIAS EMERGENTES</td>
-        <td>IDS</td>
-        <td>PEREZ REYES JOSE FRANCISCO	</td>
-        <td>---</td>
-        <td>8M</td>
-        <td>R</td>
-        <td>Pendiente de Actualizar</td>
-        <td>---</td>
-        <td>---</td>
-        <td>---</td>
-      </tr>
-    </tbody>
-  </table>
+<div style="align-items: center;">
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr class="table-primary">
+                <th style="width: 400px" scope="col">Clave</th>
+                <th style="width: 400px" scope="col">Materia</th>
+                <th style="width: 400px" scope="col">Div. de la mat.</th>
+                <th style="width: 400px" scope="col">Profesor</th>
+                <th style="width: 400px" scope="col">Correo</th>
+                <th style="width: 400px" scope="col">Grupo</th>
+                <th style="width: 400px" scope="col">Tipo pond.</th>
+            </tr>
+        </thead>
+        <ng-template [ngIf]="tiraMaterias">
+
+            <tbody>
+                <tr *ngFor="let materia of tiraMaterias">
+                    <td style="width: 300px !important;">{{materia.clave}}</td>
+                    <td style="width: 300px !important;">{{materia.materia}}</td>
+                    <td style="width: 300px !important;">{{materia.divicion}}</td>
+                    <td style="width: 300px !important;">{{materia.profesor}}</td>
+                    <td style="width: 300px !important;">{{materia.correo}}</td>
+                    <td style="width: 300px !important;">{{materia.grupo}}</td>
+                    <td style="width: 300px !important;">{{materia.ponderacion}}</td>
+                </tr>
+            </tbody>
+
+        </ng-template>
+    </table>
+</div>

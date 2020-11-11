@@ -40,7 +40,8 @@ export class StudentsComponent implements OnInit {
           registro: index.registro,
           nombre: index.nombre,
           foto: this.urlFotos + index.registro + '.jpg',
-          carrera: index.carrera
+          carrera: index.carrera,
+          grupo: index.grupo
         };
 
         this.students.push(estudiante);

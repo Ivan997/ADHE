@@ -13,6 +13,7 @@
             <div class="col-12 col-sm-6 col-md-3 tarjetas card m-2 pointer" (click)="seeProfile=true" [routerLink]="['/inicio/estudiantes/'+student.registro]">
                 <div class="card-header">
                     Registro: {{student.registro}}
+                    <!-- grupo: {{student.grupo}} -->
                 </div>
                 <img class="card-img-top mt-3" src="{{student.foto}}" alt="Card image cap">
                 <div class="card-body">
