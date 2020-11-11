@@ -1,14 +1,26 @@
 <div class="row boton container">
     <i class="zmdi zmdi-chevron-left zmdi-hc-5x mb-1 float-left no-outline pointer" [routerLink]="['/inicio/estudiantes']"></i>
-    <div class="col">
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn card-header" routerLinkActive routerLink="perfil">Perfil</button>
-            <button type="button" class="btn card-header" routerLinkActive routerLink="citas">Citas</button>
-            <button type="button" class="btn card-header" routerLinkActive routerLink="tutorias">Tutorias</button>
-            <button type="button" class="btn card-header" routerLinkActive routerLink="goe">GOE</button>
-            <button type="button" class="btn card-header" routerLinkActive routerLink="asesorias">Asesorias</button>
+    <div class="col flex-wrap block" style="text-align: center;">
+        <div class="btn-group flex-wrap" role="group" aria-label="Basic example">
+            <button *ngIf="seleccion !== 'Perfil' " (click)="seleccion = 'Perfil'; " type="button" class="btn-grp btn card-header" routerLinkActive routerLink="perfil">Perfil</button>
+            <button *ngIf="seleccion === 'Perfil' " type="button" class="btn-grp-selected btn card-header" routerLinkActive routerLink="perfil">Perfil</button>
+
+            <button *ngIf="seleccion !== 'Citas' " (click)="seleccion = 'Citas'; " type="button" class="btn-grp btn card-header" routerLinkActive routerLink="citas">Citas</button>
+            <button *ngIf="seleccion === 'Citas' " type="button" class="btn-grp-selected btn card-header" routerLinkActive routerLink="citas">Citas</button>
+
+            <button *ngIf="seleccion !== 'Tutorias' " (click)="seleccion = 'Tutorias'; " type="button" class="btn-grp btn card-header" routerLinkActive routerLink="tutorias">Tutorias</button>
+            <button *ngIf="seleccion === 'Tutorias' " type="button" class="btn-grp-selected btn card-header" routerLinkActive routerLink="tutorias">Tutorias</button>
+
+            <button *ngIf="seleccion !== 'GOE' " (click)="seleccion = 'GOE'; " type="button" class="btn-grp btn card-header" routerLinkActive routerLink="goe">GOE</button>
+            <button *ngIf="seleccion === 'GOE' " type="button" class="btn-grp-selected btn card-header" routerLinkActive routerLink="goe">GOE</button>
+
+            <button *ngIf="seleccion !== 'Asesorias' " (click)="seleccion = 'Asesorias'; " type="button" class="btn-grp btn card-header" routerLinkActive routerLink="asesorias">Asesorias</button>
+            <button *ngIf="seleccion === 'Asesorias' " type="button" class="btn-grp-selected btn card-header" routerLinkActive routerLink="asesorias">Asesorias</button>
+
+
         </div>
     </div>
+
 </div>
 
 <div class="container">

@@ -1,32 +1,24 @@
-<table class="table table-bordered">
+<table class="table table-bordered table-responsive">
     <thead>
-      <tr class="table-primary">
-        <th scope="col">Clave</th>
-        <th scope="col">Materia</th>
-        <th scope="col">Div. de la mat.</th>
-        <th scope="col">Profesor</th>
-        <th scope="col">Correo</th>
-        <th scope="col">Grupo</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Tipo pond.</th>
-        <th scope="col">1er Parcial</th>
-        <th scope="col">2do Parcial</th>
-        <th scope="col">3er Parcial</th>
-      </tr>
+        <tr class="table-primary">
+            <th scope="col">Clave</th>
+            <th scope="col">Materia</th>
+            <th scope="col">Div. de la mat.</th>
+            <th scope="col">Profesor</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Grupo</th>
+            <th scope="col">Tipo pond.</th>
+        </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>ICJ00</td>
-        <td>TECNOLOGIAS EMERGENTES</td>
-        <td>IDS</td>
-        <td>PEREZ REYES JOSE FRANCISCO	</td>
-        <td>---</td>
-        <td>8M</td>
-        <td>R</td>
-        <td>Pendiente de Actualizar</td>
-        <td>---</td>
-        <td>---</td>
-        <td>---</td>
-      </tr>
+    <tbody *ngIf="tiraDeMaterias">
+        <tr *ngFor="let materia of tiraMaterias">
+            <td>{{materia.clave}}</td>
+            <td>{{materia.materia}}</td>
+            <td>{{materia.divicion}}</td>
+            <td>{{materia.profesor}}</td>
+            <td>{{materia.correo}}</td>
+            <td>{{materia.grupo}}</td>
+            <td>{{materia.ponderacion}}</td>
+        </tr>
     </tbody>
-  </table>
+</table>

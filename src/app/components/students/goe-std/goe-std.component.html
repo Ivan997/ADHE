@@ -21,8 +21,7 @@
         <div *ngFor="let nota of notas; let i = index">
             <div *ngIf="nota.area == 'GOE'" class="card " style="margin-top: 10px; ">
                 <div class="card-header ">
-                    <!-- <span class=" ">{{nota.fecha}} - {{nota.hora}}</span> -->
-                    <!-- <span class=" ">{{nota.date | date :'fullDate'}} - {{nota.date | date :'shortTime'}}</span> -->
+                    <span class=" ">{{nota.fecha}} - {{nota.hora}}</span>
                     <br>
                     <span>Encargado: {{nota.encargado}}</span>
                     <br>
