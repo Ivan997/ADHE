@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
 import { ObservacionesModel } from '../../../models/observaciones.model';
 import { CitasModel } from '../../../models/citas.model';
-import moment from 'moment';
+import * as moment from 'moment';
 moment.locale('es');
 
 @Component({

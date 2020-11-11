@@ -4,7 +4,7 @@ export class CitasModel{
   nombre: string;
   apellido: string;
   encargado: string;
-  fecha: Date;
+  fecha: String;
   hora: string;
   area: string;
   nota: string;
