@@ -26,6 +26,8 @@ import { TimetableComponent } from './components/students/timetable/timetable.co
 import { SubjectsComponent } from './components/students/subjects/subjects.component';
 import { ObservacionesComponent } from './components/common/observaciones/observaciones.component';
 import { FormularioCitasComponent } from './components/common/citas/formulario-citas/formulario-citas.component';
+import { FormularioFormatoComponent } from './components/common/formulario-formato/formulario-formato.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { FormularioCitasComponent } from './components/common/citas/formulario-c
     TimetableComponent,
     ObservacionesComponent,
     FormularioCitasComponent,
-    SubjectsComponent
+    SubjectsComponent,
+    FormularioFormatoComponent
   ],
   imports: [
     AppRoutingModule,
@@ -57,7 +60,8 @@ import { FormularioCitasComponent } from './components/common/citas/formulario-c
     CommonModule,
     ChartsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

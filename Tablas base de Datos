@@ -1,0 +1,96 @@
+Base de datos ADHE
+Tablas:
+*Alumno:
+	Registro: String
+	Nombre: String
+	Nivel: String
+	Carrera: String
+	Tipo: String
+	Grupo: String
+	Turno: String
+
+*Horarios:
+	-id: numero
+	-Grupo: String
+	-Materia: String
+	-Lugar: String
+	-Dia: String
+	-Hora_inic: String
+	-Hora-fin: String
+	
+Tira de Materias:
+	-Clave : String
+	-Materia: String
+	-Divición: String
+	-Profesor: String
+	-Correo: String
+	-Grupo: String
+	-Tipo: String
+	-Ponderación: String
+	
+*Citas:
+	-ID: numero
+	-Registro: String
+	-Nombre: String
+	-Fecha: String (usuario)
+	-Hora: String (usuario)
+	-Area: String
+	-Asistencia: boolean
+	-Pendiente: boolean
+
+*Observaciones:
+	-id: string 31102020
+	-Registro: String
+	-Nombre: String
+	-Fecha: String (auto calculado)
+	-Hora: String (auto calculado)
+	-Encargado: String
+	-Materia / Área: String
+	-Observación: String-Parrafo
+	
+*Formato_GOE: (falta)
+	-id_folio: String
+	-Tipo: String
+	-Encargado:: String
+	-Fecha: String (auto calculado)
+	-Hora: String (auto calculado)
+	
+	-Avances antes de entrevista (previos): String	
+	-Observaciones (previas): String	
+	
+	-Avances durante entrevista: String
+	-Observaciones: String
+	
+	?-Proxima Cita: String
+	
+*Clases_Asesorias: 
+	-id: numero
+	-Materia: String
+	-Profesor: String
+	-1er Parcial
+	  ->Asistencia: numero
+	  ->Calificación: numero
+	-2do Parcial
+	  ->Asistencia: numero
+	  ->Calificación: numero
+	-3er Parcial
+	  ->Asistencia: numero
+	  ->Calificación: numero
+	-Promedio
+
+*Asesorias_alumno:
+	id: numero
+	Registro: String
+	Id_materia: numero
+	
+
+<<<<<<<<<<<<<< PENDIENTES >>>>>>>>>>>>>>>>>>>>>>>>>>
+formato de agregar clase a alumno (Fatima)
+	-Muestre las clases registradas o disponibles
+Formato de GOE
+
+Inicio de sesion con WEB (IVAN)
+Base de datos Firebase (IVAN)
+EStudiantes de base de datos
+Reppo de imagenes
+
