@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import moment from 'moment';
 import { AlumnosService } from 'src/app/services/alumnos.service';
+import Swal from 'sweetalert2';
 moment.locale('es');
 @Component({
   selector: 'app-formulario-formato',
@@ -31,15 +32,15 @@ export class FormularioFormatoComponent implements OnInit {
     this.forma.setValue({
       fecha: this.fecha.format('yyyy-mm-DD'),
       hora: this.fecha.format('hh:mm A'),
-      folio: '',
-      tipo: '',
-      avancesPrev: '',
-      observacionesPrev: '',
-      avances: '',
-      observaciones: '',
-      encargado: '',
+      folio: 'jjkejasd1295',
+      tipo: 'Primer cita',
+      avancesPrev: 'ninguno',
+      observacionesPrev: 'El muchacho se ve ansioso',
+      avances: 'Pudo expresar su sentir',
+      observaciones: 'Lleva tarea',
+      encargado: 'Ivan Arredondo',
       registro: this.as.alumnoActual
-    })
+    });
   }
   get folioValido() {
     return this.forma.get('folio').invalid && this.forma.get('folio').touched;
@@ -63,7 +64,43 @@ export class FormularioFormatoComponent implements OnInit {
     return this.forma.get('observaciones').invalid && this.forma.get('observaciones').touched;
   }
   save(f) {
-    console.log(f);
+    if (this.forma.invalid){
+      this.forma.markAllAsTouched();
+      Swal.fire({
+        title: 'Llene los espacios indicados',
+        icon: "warning"
+      });
+      return;
+    }
+    Swal.fire({
+      icon: 'info',
+      title: 'Espere',
+      text: 'Guardando Cita',
+      allowOutsideClick: false
+    });
+    Swal.showLoading();
+    const observacion = {
+      area: 'GOE',
+      encargado: this.forma.get('encargado').value,
+      fecha: this.forma.get('fecha').value,
+      hora: this.forma.get('hora').value,
+      id: '',
+      nombre: this.as.student.nombre,
+      observacion: this.forma.get('observaciones').value,
+      registro: this.as.alumnoActual,
+      avance: this.forma.get('avances').value,
+      avancePrevio: this.forma.get('avancesPrev').value,
+      observacionPrevia: this.forma.get('observacionesPrev').value,
+      tipo: this.forma.get('tipo').value,
+    };
+    this.as.crearObservacion(observacion).subscribe( resp => {
+      Swal.fire({
+        icon: 'success',
+        title: 'OK',
+        text: 'Se agrego correctamente'
+      });
+    });
+    // console.log(observacion);
 
   }
 }

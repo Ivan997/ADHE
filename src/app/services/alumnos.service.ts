@@ -8,6 +8,7 @@ import { AlumnoModel } from '../models/alumno.model';
 import { HorarioModel } from '../models/horario.model';
 import { TiraMateriasModel } from '../models/tiraMaterias.model';
 import { getTestBed } from '@angular/core/testing';
+import { AsesoriaModel } from '../models/asesorias.model';
 
 @Injectable({
   providedIn: 'root'
@@ -87,12 +88,16 @@ export class AlumnosService {
     return this.http.put(`${this.url}/citas/${cita.id}.json`, cita);
   }
 
+  actualizarAsesorias(elemento: AsesoriaModel): any{
+    return this.http.put(`${this.url}/asesorias/${elemento.id}.json`, elemento);
+  }
+
   // CREACIONES
 
   private crearArregloCitas(citasObj: object): CitasModel[] {
     const cits: CitasModel[] = [];
 
-    console.log(citasObj);
+    // console.log(citasObj);
 
     if (citasObj === null) { return []; }
     Object.keys(citasObj).forEach(key => {
@@ -149,6 +154,22 @@ export class AlumnosService {
     return obs;
   }
 
+  private crearArregloAses(AsesoriasObj: object): AsesoriaModel[] {
+    const asistx: AsesoriaModel[] = [];
+
+  //console.log('Asesorias OBJ');
+  //console.log(AsesoriasObj);
+
+    if (AsesoriasObj === null) { return []; }
+    Object.keys(AsesoriasObj).forEach(key => {
+      const ob: AsesoriaModel = AsesoriasObj[key];
+      ob.id = key;
+      asistx.push(ob);
+    });
+
+    return asistx;
+  }
+
   crearObservacion(observacion): any {
 
     if (observacion.id !== '') {
@@ -160,6 +181,22 @@ export class AlumnosService {
         map((resp: any) => {
           observacion.id = resp.name;
           return observacion;
+        })
+      );
+  }
+
+  crearAsesoria(elemento): any {
+
+    if (elemento.id !== '') {
+      return;
+    }
+
+    return this.http.post(`${this.url}/asesorias.json`, elemento)
+      .pipe(
+        map((resp: any) => {
+        //console.log(resp);
+          // observacion.id = resp.name;
+          // return observacion;
         })
       );
   }
@@ -187,7 +224,7 @@ export class AlumnosService {
     return this.http.get(`${this.url}/alumnos.json`)
       .pipe(
         map(resp => {
-          if (registro != '') {
+          if (registro !== '') {
             return this.getAlumnoCorrecto(resp, registro);
           } else {
             return this.getTodosAlumnos(resp);
@@ -196,7 +233,7 @@ export class AlumnosService {
       );
   }
 
-  getTiradeMaterias(grupo:string): any{
+  getTiradeMaterias(grupo: string): any{
     return this.http.get(`${this.url}/tiraMaterias.json`).pipe(
       map( resp => this.crearArregloTiraMat(resp, grupo))
     );
@@ -219,6 +256,13 @@ export class AlumnosService {
     return this.http.get(`${this.url}/observaciones.json`)
       .pipe(
         map(this.crearArregloObs)
+      );
+  }
+
+  getAsesorias(): any {
+    return this.http.get(`${this.url}/asesorias.json`)
+      .pipe(
+        map(this.crearArregloAses)
       );
   }
 }

@@ -3,6 +3,7 @@ import { AlumnosService } from '../../../services/alumnos.service';
 import { ObservacionesModel } from '../../../models/observaciones.model';
 import { CitasModel } from '../../../models/citas.model';
 import * as moment from 'moment'
+import { ObservacionesGOEModel } from '../../../models/observacionesgoe.model';
 moment.locale('es');
 
 @Component({
@@ -24,7 +25,7 @@ export class GoeStdComponent implements OnInit {
   // fecha3 = new Date('09/30/2020 3:25 pm');//MM/DD/AAAA HH:MM:SS
   // fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
 
-  notas: ObservacionesModel[] = [];
+  notas: ObservacionesGOEModel[] = [];
 
   dates = [];
   passDates = [];
@@ -116,8 +117,6 @@ export class GoeStdComponent implements OnInit {
     }
   }
 
-
-
   verificaCita(index: number) {
 
     if (this.dates[index].location === 'GOE') {
@@ -187,6 +186,9 @@ export class GoeStdComponent implements OnInit {
 
   getNota(index: number) {
     return this.notas[index].observacion.substring(500, -1);
+  }
+  getNotaPrevia(index: number) {
+    return this.notas[index].observacionPrevia.substring(500, -1);
   }
 
   muestra(index: number) {
