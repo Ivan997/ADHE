@@ -2,7 +2,7 @@ import { Component, OnInit, resolveForwardRef } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
 import { ObservacionesModel } from '../../../models/observaciones.model';
 import { CitasModel } from '../../../models/citas.model';
-import * as moment from 'moment'
+import * as moment from 'moment';
 import { ObservacionesGOEModel } from '../../../models/observacionesgoe.model';
 moment.locale('es');
 
@@ -14,16 +14,23 @@ moment.locale('es');
 })
 export class GoeStdComponent implements OnInit {
 
+
+  public lineaChartData: Array<any> = [
+    {data: [65, 59, 80], label: 'Series aksdu'},
+    {data: [28, 48, 40], label: 'Series adska'}
+  ];
+  private lineaChartLabels: Array<any> = ['Asistencia','Inasistencia'];
+
   observaciones = false;
   citas = false;
+  graficas = false;
+  vacio = false;
   citasAnteriores = false;
   today = new Date();
-  pos = -1; s
+  pos = -1;
 
-  // fecha1 = new Date('12/09/2019');//MM/DD/AAAA HH:MM:SS
-  // fecha2 = new Date('10/12/2019');//MM/DD/AAAA HH:MM:SS
-  // fecha3 = new Date('09/30/2020 3:25 pm');//MM/DD/AAAA HH:MM:SS
-  // fecha4 = new Date('01/01/2020');//MM/DD/AAAA HH:MM:SS
+  asistencia = 0;
+  inasistencia = 0;
 
   notas: ObservacionesGOEModel[] = [];
 
@@ -59,7 +66,9 @@ export class GoeStdComponent implements OnInit {
           const fecha = index.fecha.split('/');
           const hora = index.hora.split(':');
 
-          const fec = new Date(parseInt(fecha[2]), parseInt(fecha[1]), parseInt(fecha[0]), parseInt(hora[0]), parseInt(hora[1]), 0);
+          console.log('fecha');
+          console.log(fecha);
+          const fec = new Date((parseInt(fecha[2])), (parseInt(fecha[1])-1), parseInt(fecha[0]), parseInt(hora[0]), parseInt(hora[1]), 0);
 
           const diaC = fec.getDate();
           const mesC = fec.getMonth();
@@ -79,6 +88,7 @@ export class GoeStdComponent implements OnInit {
             location: index.area,
             notes: index.nota,
             finished: index.finalizado,
+            asistencia: index.asistencia,
             photo: 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/' + this.as.alumnoActual + '.jpg'
           };
 
@@ -90,6 +100,13 @@ export class GoeStdComponent implements OnInit {
           else if (mesC > mesH) { this.dates.push(objCita); }
           else if (anioC === anioH && mesC === mesH && diaC >= diaH) { this.dates.push(objCita); }
           else {
+            if(objCita.area==='GOE'){
+              if (objCita.asistencia){
+                this.asistencia++;
+              }else{
+                this.inasistencia++;
+              }
+            }
             this.passDates.push(objCita);
             if ((index.asistencia && !index.finalizado) || !index.finalizado) { this.actualizarCitaPass(index); }
           }
@@ -103,6 +120,19 @@ export class GoeStdComponent implements OnInit {
         }
 
       });
+
+      this.lineaChartData = [
+        {data: [this.asistencia, this.inasistencia], label: 'Citas'}
+      ];
+      if (this.asistencia !== 0 && this.inasistencia !== 0 ){
+        this.graficas = true;
+        this.vacio = false;
+      }else{
+        this.graficas = false;
+        this.vacio = true;
+      }
+
+
     });
   }
 
@@ -126,14 +156,6 @@ export class GoeStdComponent implements OnInit {
     }
 
   }
-
-  // verificaCitaVencida(index: number){
-  //   if (this.dates[index].location === 'GOE' ){
-  //     return this.dates[index].finished;
-  //   }else{
-  //     return false;
-  //   }
-  // }
 
   finalizado(cita) {
     this.dates.map(dat => {

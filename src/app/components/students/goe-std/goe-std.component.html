@@ -1,12 +1,20 @@
 <div class="container">
     <h3 style="text-align: center;">Graficas GOE</h3>
-    <div class="row">
-        <div class="col-md-6">
-            <app-graficas [lineaChartType]="'line'"></app-graficas>
+    <div *ngIf="graficas" class="row">
+        <div class="col-md-3 col-lg-4"></div>
+        <div class="col-md-6 col-lg-4">
+            <app-graficas [lineaChartType]="'pie'" [lineaChartData]="lineaChartData" [lineaChartLabels]="lineaChartLabels"></app-graficas>
         </div>
-        <div class="col-md-6 ">
+        <div class="col-md-3 col-lg-4"></div>
+        <!-- <div class="col-md-6 ">
             <app-graficas [lineaChartType]="'pie'"></app-graficas>
-        </div>
+        </div> -->
+    </div>
+    <div *ngIf="!graficas && !vacio" style="align-items: center; text-align:center; font-size: 20px; color: blue;">
+        <span><i class="zmdi zmdi-rotate-right zmdi-hc-spin"> </i> Cargando datos espere </span>
+    </div>
+    <div *ngIf="vacio && !graficas" style="align-items: center; text-align:center; font-size: 20px; color: red;">
+        <span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No hay datos que graficar</span>
     </div>
     <hr>
     <button type="button" class="btn btn-block boton" [ngClass]="{'btn-outline-info': observaciones, 'btn-info': !observaciones}" (click)="observaciones = !observaciones">Observaciones Y Formatos

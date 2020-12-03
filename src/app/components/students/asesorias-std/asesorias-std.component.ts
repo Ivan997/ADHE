@@ -7,6 +7,7 @@ import { stringify } from '@angular/compiler/src/util';
 import { AsesoriaModel } from '../../../models/asesorias.model';
 import Swal from 'sweetalert2';
 import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { KeyedRead, ReturnStatement } from '@angular/compiler';
 
 @Component({
   selector: 'app-asesorias-std',
@@ -17,7 +18,32 @@ import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 export class AsesoriasStdComponent implements OnInit {
   forma: FormGroup;
 
+  observaciones = false;
+  clases = false;
+  vacio = false;
+  graficas = false;
+  citasAnteriores = false;
+  today = new Date();
+  pos = -1;
+  notas: ObservacionesModel[] = [];
+  class = [];
+
+  public lineaChartData: Array<any> = [
+    {data: [65, 59, 80], label: 'Series aksdu'},
+    {data: [28, 48, 40], label: 'Series adska'}
+  ];
+  public lineaChartLabels: Array<any> = ['1er P', '2do P', '3er P'];
+
   constructor(private as: AlumnosService, private modalService: NgbModal, private fb: FormBuilder) {
+
+
+  }
+
+  ngOnInit(): void {
+
+    this.graficas = false;
+    this.vacio = false;
+    this.clases = false;
 
     const observaciones = this.as.getObservaciones().subscribe(
       (notes) => {
@@ -25,65 +51,74 @@ export class AsesoriasStdComponent implements OnInit {
       }
     );
 
-    this.clases = false;
     const promesaAsesorias = new Promise((resolve) => {
       if (this.getAsesorias()){resolve(); }
     }).then(() => {
-      this.clases = true;
+
+
+    // this.guardar();
     });
-  }
-
-  observaciones = false;
-  clases = false;
-  citasAnteriores = false;
-  today = new Date();
-  pos = -1;
-
-  fecha1 = new Date('12/09/2019'); // MM/DD/AAAA HH:MM:SS
-  fecha2 = new Date('10/12/2019'); // MM/DD/AAAA HH:MM:SS
-  fecha3 = new Date('09/12/2020'); // MM/DD/AAAA HH:MM:SS
-  fecha4 = new Date('01/01/2020'); // MM/DD/AAAA HH:MM:SS
-
-  notas: ObservacionesModel[] = [];
-
-  class = [
-    // { name: 'Matematicas', attendant: 'Ivan Arredondo', asistenciaP1: 10, partial1: 100, asistenciaP2: 10, partial2: 50, partial3: 0, asistenciaP3: 10, average: 0 },
-    // { name: 'Español', attendant: 'Ivan Arredondo', asistenciaP1: 10, partial1: 100, asistenciaP2: 10, partial2: 50, partial3: 20, asistenciaP3: 10, average: 0 },
-    // { name: 'Ingles', attendant: 'Jessica Lizette', asistenciaP1: 10, partial1: 100, asistenciaP2: 10, partial2: 50, partial3: 0, asistenciaP3: 10, average: 0 }
-  ];
-
-  ngOnInit(): void {
-
-
-    // this.notas.sort((a, b) => {
-    //   return b.fecha.getTime() - a.fecha.getTime();
-    // });
   }
 
   private getAsesorias(): boolean{
-    this.class = [];
-    this.as.getAsesorias().subscribe(( resp: any[] ) => {
-      resp.forEach(key => {
-        // console.log('get Asesorias');
-        if (stringify(key.registro) === this.as.alumnoActual){
-          const ob = {
-            id: key.id,
-            name: key.materia,
-            attendant: key.profesor,
-            asistenciaP1: key.asistenciaP1 ,
-            partial1: key.parcialP1 ,
-            asistenciaP2: key.asistenciaP2,
-            partial2: key.parcialP2 ,
-            partial3: key.parcialP3 ,
-            asistenciaP3: key.asistenciaP3,
-            average: key.promedio
-          };
-          this.class.push(ob);
-        }
-      });
-    });
 
-    return true;
+    this.graficas = false;
+    this.vacio = false;
+
+    this.class = [];
+    console.log('linearChartData:');
+    console.log(this.lineaChartData);
+    this.lineaChartData = new Array();
+
+    const promesaGetAsesorias = new Promise((resolve, reject) => {
+      this.as.getAsesorias().subscribe(( resp: any[] ) => {
+        resp.forEach(key => {
+          // console.log('get Asesorias');
+          if (stringify(key.registro) === this.as.alumnoActual && key.materia !== undefined){
+            const ob = {
+              id: key.id,
+              name: key.materia,
+              attendant: key.profesor,
+              asistenciaP1: key.asistenciaP1 ,
+              partial1: key.parcialP1 ,
+              asistenciaP2: key.asistenciaP2,
+              partial2: key.parcialP2 ,
+              partial3: key.parcialP3 ,
+              asistenciaP3: key.asistenciaP3,
+              average: key.promedio
+            };
+            const data = {
+              data: [
+                key.parcialP1,
+                key.parcialP2,
+                key.parcialP3
+              ],
+              label: key.materia
+            };
+            this.class.push(ob);
+            console.log('data:');
+            console.log(data);
+            this.lineaChartData.push(data);
+            console.log('linearChartData:');
+            console.log(this.lineaChartData);
+          }
+        });
+        resolve();
+      });
+    }).then(() => {
+      console.log('this.lineaChartData.length');
+      console.log(this.lineaChartData);
+      if (this.lineaChartData.length !== 0 ){
+        this.graficas = true;
+        this.vacio = false;
+      }else{
+        this.graficas = false;
+        this.vacio = true;
+      }
+    }).catch(() => false);
+
+
+
   }
 
   getNota(index: number) {
@@ -156,6 +191,16 @@ export class AsesoriasStdComponent implements OnInit {
   }
 
   guardar(){
+
+    this.graficas = false;
+    Swal.fire({
+      icon: 'info',
+      title: 'Espere',
+      text: 'Guardando Formulario',
+      allowOutsideClick: false
+    });
+    Swal.showLoading();
+
     this.class.forEach( key => {
 
       let txt = 'partial1-' + key.id;
@@ -188,10 +233,15 @@ export class AsesoriasStdComponent implements OnInit {
       };
 
       this.as.actualizarAsesorias(ob).subscribe();
-    //console.log(ob);
-    //console.log(key);
-
     });
+
+    Swal.fire({
+      icon: 'success',
+      title: 'OK',
+      text: 'Se agrego correctamente'
+    });
+
+    this.graficas = true;
   }
 
   private actualizarAsesorias(id: string, materia: string, profesor: string,
@@ -230,10 +280,12 @@ export class AsesoriasStdComponent implements OnInit {
       setTimeout(() => { resolve(); }, 2000 );
     }).then(() => {
       this.clases = false;
+      this.graficas = false;
       const promesaAsesorias = new Promise((resolve) => {
         if (this.getAsesorias()){resolve(); }
       }).then(() => {
-        this.clases = true;
+        // this.clases = true;
+        this.graficas = true;
         Swal.fire({
           icon: 'success',
           title: 'OK',

@@ -39,7 +39,7 @@ export class CitasComponent implements OnInit {
         const fecha = index.fecha.split('/');
         const hora = index.hora.split(':');
 
-        const fec = new Date(parseInt(fecha[2]), parseInt(fecha[1]), parseInt(fecha[0]), parseInt(hora[0]), parseInt(hora[1]), 0);
+        const fec = new Date((parseInt(fecha[2])), (parseInt(fecha[1])-1), parseInt(fecha[0]), parseInt(hora[0]), parseInt(hora[1]), 0);
 
         const diaC = fec.getDate();
         const mesC = fec.getMonth();
