@@ -26,6 +26,7 @@ export class GoeStdComponent implements OnInit {
   graficas = false;
   vacio = false;
   citasAnteriores = false;
+  citasPendientes = false;
   today = new Date();
   pos = -1;
 

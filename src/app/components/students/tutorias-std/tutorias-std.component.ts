@@ -28,6 +28,7 @@ export class TutoriasStdComponent implements OnInit {
   observaciones = false;
   citas = false;
   citasAnteriores = false;
+  citasPendientes = false;
   today = new Date();
   pos = -1; s
 

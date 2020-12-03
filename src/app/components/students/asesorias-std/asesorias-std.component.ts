@@ -51,16 +51,10 @@ export class AsesoriasStdComponent implements OnInit {
       }
     );
 
-    const promesaAsesorias = new Promise((resolve) => {
-      if (this.getAsesorias()){resolve(); }
-    }).then(() => {
-
-
-    // this.guardar();
-    });
+    this.getAsesorias()
   }
 
-  private getAsesorias(): boolean{
+  private getAsesorias(){
 
     this.graficas = false;
     this.vacio = false;
