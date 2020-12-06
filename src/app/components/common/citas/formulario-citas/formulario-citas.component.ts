@@ -138,7 +138,7 @@ export class FormularioCitasComponent implements OnInit {
     }
 
     this.cita.id = '';
-    this.cita.registro = form.value['registro'];
+    this.cita.registro = form.value[ 'registro' ];
     this.cita.nombre = form.value['nombre'];
     this.cita.apellido = form.value['apellido'];
     this.cita.encargado = form.value['encargado'];

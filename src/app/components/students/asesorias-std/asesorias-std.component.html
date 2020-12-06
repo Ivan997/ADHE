@@ -1,24 +1,32 @@
 <div class="container">
-    <h3 style="text-align: center;">Graficas Asesorías</h3>
-    <div class="row">
-        <div class="col-md-6">
-            <app-graficas [lineaChartType]="'line'"></app-graficas>
+    <div style="align-items: center; text-align: center;">
+        <h3 style="">Graficas Asesorías</h3>
+    </div>
+    <div *ngIf="graficas && this.lineaChartData.length > 0" class="row">
+
+        <div class="col-md-3 col-lg-4"></div>
+        <div class="col-md-6 col-lg-4">
+            <app-graficas [lineaChartType]="'line'" [lineaChartData]="lineaChartData" [lineaChartLabels]="lineaChartLabels"></app-graficas>
         </div>
-        <div class="col-md-6 ">
-            <app-graficas [lineaChartType]="'pie'"></app-graficas>
-        </div>
+        <div class="col-md-3 col-lg-4"></div>
     </div>
 
+
+    <div style="align-items: center; text-align:center; font-size: 20px;">
+        <span *ngIf="!graficas && !vacio" style="color: blue;"><i class="zmdi zmdi-rotate-right zmdi-hc-spin"> </i> Cargando datos espere </span>
+        <span *ngIf="vacio && !graficas" style="color: red;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No hay datos que graficar</span>
+    </div>
+    <!-- <div style="align-items: center; text-align:center; font-size: 20px; color: red;">
+    </div> -->
     <hr>
-    <button type="button " class="btn btn-block "
-        [ngClass]="{ 'btn-outline-info': observaciones, 'btn-info': !observaciones} "
-        (click)="observaciones=! observaciones ">Observaciones
+
+    <hr>
+    <button type="button " class="btn btn-block " [ngClass]="{ 'btn-outline-info': observaciones, 'btn-info': !observaciones} " (click)="observaciones=! observaciones ">Observaciones
         <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!observaciones"></i>
         <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="observaciones"></i>
     </button>
     <div *ngIf="observaciones " class="col ">
-        <button type="button " class="btn btn-outline-warning btn-block " style="margin-top: 10px; "
-            routerLink="../formObserv">+ Agregar Observacion</button>
+        <button type="button " class="btn btn-outline-warning btn-block " style="margin-top: 10px; " routerLink="../formObserv">+ Agregar Observacion</button>
 
         <!-- tarjetas de las observaciones  -->
         <div *ngFor=" let nota of notas; let i=index ">
@@ -41,12 +49,11 @@
     </div>
 
     <hr>
-    <button type="button " class="btn btn-block " [ngClass]="{ 'btn-outline-info': clases, 'btn-info': !clases} "
-        (click)="clases=! clases " style="margin-bottom: 10px; ">Clases
+    <button type="button " class="btn btn-block " [ngClass]="{ 'btn-outline-info': clases, 'btn-info': !clases} " (click)="clases=! clases " style="margin-bottom: 10px;">Clases
         <i class="zmdi zmdi-chevron-down zmdi-hc-lg no-outline" *ngIf="!clases"></i>
         <i class="zmdi zmdi-chevron-up zmdi-hc-lg no-outline" *ngIf="clases"></i>
     </button>
-    <div *ngIf="clases " class="col ">
+    <div *ngIf="clases " class="col">
 
         <table class="table table-responsive table-bordered ">
             <thead style="text-align: center; " class="thead-dark ">
@@ -74,20 +81,20 @@
                 <tr *ngFor="let c of this.class; let i= index " style="text-align: center; ">
                     <td>{{c.name}}</td>
                     <td>{{c.attendant}}</td>
-                    <td>{{c.asistenciaP1}}</td>
-                    <td>{{c.partial1}}</td>
-                    <td>{{c.asistenciaP2}}</td>
-                    <td>{{c.partial2}}</td>
-                    <td>{{c.asistenciaP3}}</td>
-                    <td>{{c.partial3}}</td>
+                    <td><input style="width: 50px; text-align: center;" value="{{c.asistenciaP1}}" id="asistenciaP1-{{c.id}}" /></td>
+                    <td><input style="width: 50px; text-align: center;" value="{{c.partial1}}" id="partial1-{{c.id}}" /></td>
+                    <td><input style="width: 50px; text-align: center;" value="{{c.asistenciaP2}}" id="asistenciaP2-{{c.id}}" /></td>
+                    <td><input style="width: 50px; text-align: center;" value="{{c.partial2}}" id="partial2-{{c.id}}" /></td>
+                    <td><input style="width: 50px; text-align: center;" value="{{c.asistenciaP3}}" id="asistenciaP3-{{c.id}}" /></td>
+                    <td><input style="width: 50px; text-align: center;" value="{{c.partial3}}" id="partial3-{{c.id}}" /></td>
                     <td>{{getAverage(i) | number : '1.2-2'}}</td>
                 </tr>
             </tbody>
         </table>
-
-        <button type="button " class="btn btn-outline-success btn-block " style="margin-bottom: 10px; "
-            (click)="open(content)">+ Agregar
-            Clase</button>
+        <div style="align-items: center; text-align: center;">
+            <button type="button " class="btn btn-outline-success " style="margin-bottom: 10px; width: auto;" (click)="guardar()"><i class="fa fa-cloud"></i>Guardar Cambios</button>
+            <button type="button " class="btn btn-outline-warning btn-block " style="margin-bottom: 10px; " (click)="open(content)">+ Agregar Clase</button>
+        </div>
 
     </div>
 </div>
@@ -105,16 +112,14 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Materia</label>
                     <div class="col-8">
-                        <input class="form-control" name="materia" type="text" placeholder="Materia"
-                            formControlName="materia" [class.is-invalid]="materiaValido">
+                        <input class="form-control" name="materia" type="text" placeholder="Materia" formControlName="materia" [class.is-invalid]="materiaValido">
                         <small *ngIf="materiaValido" class="text-danger">Ingrese un valor valido</small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Profesor</label>
                     <div class="col-8">
-                        <input class="form-control" name="profesor" type="text" placeholder="Profesor"
-                            formControlName="profesor" [class.is-invalid]="profesorValido">
+                        <input class="form-control" name="profesor" type="text" placeholder="Profesor" formControlName="profesor" [class.is-invalid]="profesorValido">
                         <small *ngIf="profesorValido" class="text-danger">Ingrese un valor valido</small>
                     </div>
                 </div>
@@ -122,6 +127,6 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success" (click)="modal.close('Save click')">Agregar</button>
+        <button type="button" class="btn btn-outline-success" (click)="clickAgregar(modal)">Agregar</button>
     </div>
 </ng-template>
