@@ -42,18 +42,32 @@ export class StudentsComponent implements OnInit {
       // console.log(this.students);
     });
   }
-  Buscar(nombre){
-    if(nombre == "" || nombre == null){
+  Buscar(input){
+    if(input == "" || input == null){
        this.students = this.allStudents;
     }
     else{
-     this.students = this.allStudents.filter((student) =>{
+      if(isNaN(input)) this.filtrarPorNombre(input);
+      else this.filtrarPorRegistro(input)
+     
+    }
+    
+  }
+
+  filtrarPorNombre(nombre){
+    this.students = this.allStudents.filter((student) =>{
        var filtered = 0;
       filtered = filtered | student.nombre.toString().toLowerCase().includes(nombre.toLowerCase());
 
       return filtered
       });
-    }
-    
+  }
+  filtrarPorRegistro(registro){
+this.students = this.allStudents.filter((student) =>{
+       var filtered = 0;
+      filtered = filtered | student.registro.toString().includes(registro);
+
+      return filtered
+      });
   }
 }
