@@ -28,3 +28,7 @@
 .card-img-top:hover{
     opacity: 0.5;
 }
+
+.text-muted{
+  color: #6C757D !important; 
+}

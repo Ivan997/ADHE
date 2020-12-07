@@ -276,7 +276,7 @@ export class AsesoriasStdComponent implements OnInit {
       this.clases = false;
       this.graficas = false;
       const promesaAsesorias = new Promise((resolve) => {
-        if (this.getAsesorias()){resolve(); }
+       resolve(); 
       }).then(() => {
         // this.clases = true;
         this.graficas = true;

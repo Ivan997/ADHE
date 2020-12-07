@@ -12,7 +12,7 @@ export class StudentsComponent implements OnInit {
   private urlFotos = 'https://raw.githubusercontent.com/Ivan997/ADHE-img/master/';
   seeProfile = false;
   students = [];
-
+  allStudents = [];
   constructor(private router: Router, private as: AlumnosService) {
   }
 
@@ -35,11 +35,25 @@ export class StudentsComponent implements OnInit {
         };
 
         this.students.push(estudiante);
+        this.allStudents.push(estudiante);
 
       });
       // console.log('students');
       // console.log(this.students);
     });
   }
+  Buscar(nombre){
+    if(nombre == "" || nombre == null){
+       this.students = this.allStudents;
+    }
+    else{
+     this.students = this.allStudents.filter((student) =>{
+       var filtered = 0;
+      filtered = filtered | student.nombre.toString().toLowerCase().includes(nombre.toLowerCase());
 
+      return filtered
+      });
+    }
+    
+  }
 }
