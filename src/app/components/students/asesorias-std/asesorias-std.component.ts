@@ -25,8 +25,8 @@ export class AsesoriasStdComponent implements OnInit {
   citasAnteriores = false;
   today = new Date();
   pos = -1;
-  notas: ObservacionesModel[] = [];
   class = [];
+  notas: ObservacionesModel[] = [];
 
   public lineaChartData: Array<any> = [
     {data: [65, 59, 80], label: 'Series aksdu'},
@@ -41,9 +41,15 @@ export class AsesoriasStdComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.graficas = false;
-    this.vacio = false;
+    this.lineaChartData = [];
+    this.observaciones = false;
     this.clases = false;
+    this.vacio = false;
+    this.graficas = false;
+    this.citasAnteriores = false;
+    this.today = new Date();
+    this.pos = -1;
+    this.class = [];
 
     const observaciones = this.as.getObservaciones().subscribe(
       (notes) => {
@@ -51,7 +57,15 @@ export class AsesoriasStdComponent implements OnInit {
       }
     );
 
-    this.getAsesorias()
+    const promesaActualizarDatos = new Promise((resolve) => {
+      if ( this.getAsesorias() ){
+        resolve();
+      }
+    }).then( () => {
+      this.graficas = true;
+      this.clases = true;
+    });
+    // setInterval(() => { this.getAsesorias(); } , 10000);
   }
 
   private getAsesorias(){
@@ -60,11 +74,11 @@ export class AsesoriasStdComponent implements OnInit {
     this.vacio = false;
 
     this.class = [];
-    console.log('linearChartData:');
-    console.log(this.lineaChartData);
+    // console.log('linearChartData:');
+    // console.log(this.lineaChartData);
     this.lineaChartData = new Array();
 
-    const promesaGetAsesorias = new Promise((resolve, reject) => {
+    return new Promise<boolean>((resolve, reject) => {
       this.as.getAsesorias().subscribe(( resp: any[] ) => {
         resp.forEach(key => {
           // console.log('get Asesorias');
@@ -90,11 +104,11 @@ export class AsesoriasStdComponent implements OnInit {
               label: key.materia
             };
             this.class.push(ob);
-            console.log('data:');
-            console.log(data);
+            // console.log('data:');
+            // console.log(data);
             this.lineaChartData.push(data);
-            console.log('linearChartData:');
-            console.log(this.lineaChartData);
+            // console.log('linearChartData:');
+            // console.log(this.lineaChartData);
           }
         });
         resolve();
@@ -103,15 +117,12 @@ export class AsesoriasStdComponent implements OnInit {
       console.log('this.lineaChartData.length');
       console.log(this.lineaChartData);
       if (this.lineaChartData.length !== 0 ){
-        this.graficas = true;
+        // this.graficas = true;
         this.vacio = false;
       }else{
-        this.graficas = false;
-        this.vacio = true;
+        return true;
       }
     }).catch(() => false);
-
-
 
   }
 
@@ -182,11 +193,22 @@ export class AsesoriasStdComponent implements OnInit {
   clickAgregar(modal){
       this.actualizarAsesorias('', this.forma.get('materia').value, this.forma.get('profesor').value, 0, 0, 0, 0, 0, 0 );
       modal.close('Save click');
+      const promesaActualizarDatos = new Promise((resolve) => {
+
+        setTimeout(() => {
+          if ( this.getAsesorias() ){
+            resolve();
+          }
+        }, 2000);
+
+      }).then( () => {
+        this.graficas = true;
+        this.clases = true;
+      });
   }
 
   guardar(){
 
-    this.graficas = false;
     Swal.fire({
       icon: 'info',
       title: 'Espere',
@@ -227,6 +249,31 @@ export class AsesoriasStdComponent implements OnInit {
       };
 
       this.as.actualizarAsesorias(ob).subscribe();
+
+    });
+
+
+    this.lineaChartData = [];
+    this.observaciones = false;
+    this.clases = false;
+    this.vacio = false;
+    this.graficas = false;
+    this.citasAnteriores = false;
+    this.today = new Date();
+    this.pos = -1;
+    this.class = [];
+
+    const promesaActualizarDatos = new Promise((resolve) => {
+
+      setTimeout(() => {
+        if ( this.getAsesorias() ){
+          resolve();
+        }
+      }, 2000);
+
+    }).then( () => {
+      this.graficas = true;
+      this.clases = true;
     });
 
     Swal.fire({
@@ -235,7 +282,8 @@ export class AsesoriasStdComponent implements OnInit {
       text: 'Se agrego correctamente'
     });
 
-    this.graficas = true;
+
+
   }
 
   private actualizarAsesorias(id: string, materia: string, profesor: string,
@@ -276,7 +324,7 @@ export class AsesoriasStdComponent implements OnInit {
       this.clases = false;
       this.graficas = false;
       const promesaAsesorias = new Promise((resolve) => {
-       resolve(); 
+       resolve();
       }).then(() => {
         // this.clases = true;
         this.graficas = true;
